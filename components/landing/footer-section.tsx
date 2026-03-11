@@ -18,9 +18,9 @@ const footerLinks = {
   ],
   Resources: [
     { name: "Documentation", href: "#" },
-    { name: "Case Studies", href: "#" },
-    { name: "Contact", href: "#" },
-    { name: "Support", href: "#" },
+    { name: "Case Studies", href: "/portfolio" },
+    { name: "Contact", href: "/contact" },
+    { name: "Support", href: "/contact" },
   ],
   Legal: [
     { name: "Privacy", href: "#" },
@@ -33,24 +33,26 @@ const socialLinks = [
   { name: "LinkedIn", href: "#" },
   { name: "Twitter", href: "#" },
   { name: "GitHub", href: "#" },
-  { name: "hello@whyn.dev", href: "#" },
+  { name: "hello@whyn.dev", href: "mailto:hello@whyn.dev" },
 ];
 
 export function FooterSection() {
   return (
-    <footer className="relative border-t border-foreground/10">
-      {/* Animated wave background */}
-      <div className="absolute inset-0 h-64 opacity-20 pointer-events-none overflow-hidden">
-        <AnimatedWave />
-      </div>
-      
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12">
+    <footer className="relative border-t border-border/50 pt-24 overflow-hidden">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col">
+        {/* Massive Logo Lockup */}
+        <div className="w-full flex justify-center items-center overflow-hidden mb-16 border-b border-border/50 pb-16">
+          <h2 className="text-[clamp(6rem,20vw,24rem)] font-display text-foreground leading-none tracking-tighter select-none">
+            whyn.
+          </h2>
+        </div>
+
         {/* Main Footer */}
         <div className="py-16 lg:py-24">
           <div className="grid grid-cols-2 md:grid-cols-6 gap-12 lg:gap-8">
             {/* Brand Column */}
             <div className="col-span-2">
-              <a href="#" className="inline-flex items-center gap-2 mb-6">
+              <a href="/" className="inline-flex items-center gap-2 mb-6">
                 <span className="text-2xl font-display">whyn.dev</span>
               </a>
 
@@ -85,9 +87,9 @@ export function FooterSection() {
                         className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-2"
                       >
                         {link.name}
-                        {"badge" in link && link.badge && (
+                        {"badge" in link && (link as any).badge && (
                           <span className="text-xs px-2 py-0.5 bg-foreground text-background rounded-full">
-                            {link.badge}
+                            {(link as any).badge}
                           </span>
                         )}
                       </a>

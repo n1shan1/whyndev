@@ -13,7 +13,7 @@ const techStack = [
 ];
 
 const stats = [
-  { value: "92+", label: "Projects" },
+  { value: "50+", label: "Projects" },
   { value: "7.5M+", label: "Users" },
   { value: "10 yrs", label: "Experience" },
   { value: "30+", label: "Clients" },
@@ -189,8 +189,8 @@ export function DevelopersSection() {
             
             {/* Links */}
             <div className="mt-6 flex items-center gap-6 text-sm">
-              <a href="#" className="text-foreground hover:underline underline-offset-4">
-                Let's work together
+              <a href="/contact" className="text-foreground hover:underline underline-offset-4">
+                Let&apos;s work together
               </a>
               <span className="text-foreground/20">|</span>
               <a href="mailto:hello@whyn.dev" className="text-muted-foreground hover:text-foreground">

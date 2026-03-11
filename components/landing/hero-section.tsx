@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
-import { AnimatedSphere } from "./animated-sphere";
+import { ArrowRight, Zap } from "lucide-react";
+import { AnimatedGradientBackground } from "./animated-gradient-background";
 
-const words = ["grow", "lead", "win", "scale"];
+const words = ["slap", "scale", "ship", "convert"];
 
 export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -23,11 +23,8 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
-      {/* Animated sphere background */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] lg:w-[800px] lg:h-[800px] opacity-40 pointer-events-none">
-        <AnimatedSphere />
-      </div>
+    <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden">
+      <AnimatedGradientBackground />
 
       {/* Subtle grid lines */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
@@ -73,9 +70,9 @@ export function HeroSection() {
             className={`text-[clamp(3rem,12vw,10rem)] font-display leading-[0.9] tracking-tight transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
           >
-            <span className="block">We build what</span>
+            <span className="block">Building web apps</span>
             <span className="block">
-              makes you{" "}
+              that actually{" "}
               <span className="relative inline-block">
                 <span
                   key={wordIndex}
@@ -102,39 +99,45 @@ export function HeroSection() {
         {/* Description */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-end">
           <p
-            className={`text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-xl transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            className={`text-xl lg:text-2xl text-foreground/90 font-medium leading-relaxed max-w-2xl transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
           >
-            Websites, web apps & custom software — designed with AI,
-            crafted for your business.
+            No cap — most agencies sell bloated, slow templates. WHYN is a developer-led studio engineering fast, scalable, production-ready software for startups that want to move fast.
           </p>
 
           {/* CTAs */}
           <div
-            className={`flex flex-col sm:flex-row items-start gap-4 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            className={`flex flex-col sm:flex-row items-start gap-6 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
           >
-            <Button
-              size="lg"
-              className="bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full group"
-            >
-              Get Free Mockup
-              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="h-14 px-8 text-base rounded-full border-foreground/20 hover:bg-foreground/5"
-            >
-              Our Work
-            </Button>
+            <a href="/contact">
+              <Button
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 h-16 text-lg font-bold rounded-xl group relative overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_80px_-15px_rgba(212,175,55,0.6)]"
+              >
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[150%] skew-x-[-30deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-out" />
+                <span className="relative z-10 flex items-center gap-2">
+                  Let's Cook
+                  <Zap className="w-5 h-5 transition-transform group-hover:scale-110 group-hover:rotate-12 fill-current" />
+                </span>
+              </Button>
+            </a>
+            <a href="/portfolio">
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-16 px-10 text-lg font-bold rounded-xl border-primary/30 hover:bg-primary/10 relative overflow-hidden transition-all duration-300 hover:border-primary/60 hover:shadow-[0_0_40px_-10px_rgba(212,175,55,0.2)] hover:scale-105"
+              >
+                See The Receipts
+              </Button>
+            </a>
           </div>
         </div>
 
       </div>
 
       {/* Stats marquee - full width outside container */}
-      <div
+      {/* <div
         className={`absolute bottom-24 left-0 right-0 transition-all duration-700 delay-500 ${isVisible ? "opacity-100" : "opacity-0"
           }`}
       >
@@ -142,9 +145,9 @@ export function HeroSection() {
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex gap-16">
               {[
-                { value: "92+", label: "projects completed", company: "DELIVERED" },
-                { value: "7.5M+", label: "users reached", company: "IMPACT" },
-                { value: "100%", label: "client satisfaction", company: "SATISFIED" },
+                { value: "100%", label: "dedication", company: "DELIVERED" },
+                { value: "Fast", label: "execution", company: "IMPACT" },
+                { value: "Modern", label: "tech stack", company: "SATISFIED" },
                 { value: "24h", label: "avg response time", company: "SUPPORT" },
               ].map((stat) => (
                 <div key={`${stat.company}-${i}`} className="flex items-baseline gap-4">
@@ -158,7 +161,7 @@ export function HeroSection() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Scroll indicator */}
 

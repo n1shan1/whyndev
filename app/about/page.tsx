@@ -1,385 +1,156 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
 import { Navigation } from "@/components/landing/navigation";
 import { FooterSection } from "@/components/landing/footer-section";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Star, Zap, Users, Lightbulb } from "lucide-react";
-
-const stats = [
-  { value: "92+", label: "Projects Completed" },
-  { value: "7.5M+", label: "Users Reached" },
-  { value: "100%", label: "Client Satisfaction" },
-  { value: "24h", label: "Avg Response Time" },
-];
-
-const values = [
-  {
-    icon: Star,
-    title: "Quality First",
-    description: "We deliver exceptional code and design that stands the test of time.",
-  },
-  {
-    icon: Zap,
-    title: "Fast Execution",
-    description: "Quick turnaround without compromising on quality or attention to detail.",
-  },
-  {
-    icon: Users,
-    title: "Client Focused",
-    description: "Your success is our success. We invest in understanding your goals.",
-  },
-  {
-    icon: Lightbulb,
-    title: "Innovation",
-    description: "We use cutting-edge technologies and best practices in our industry.",
-  },
-];
-
-function AnimatedCounter({ end, suffix = "" }: { end: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const [hasAnimated, setHasAnimated] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          setHasAnimated(true);
-          const duration = 2000;
-          const startTime = performance.now();
-          const animate = (currentTime: number) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            setCount(Math.floor(eased * end));
-            if (progress < 1) requestAnimationFrame(animate);
-          };
-          requestAnimationFrame(animate);
-        }
-      },
-      { threshold: 0.5 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [end, hasAnimated]);
-
-  return (
-    <div ref={ref} className="text-5xl lg:text-7xl font-display tracking-tight">
-      {count.toLocaleString()}{suffix}
-    </div>
-  );
-}
-
-function useInView(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return { ref, isVisible };
-}
+import { Copy, Plus, MoreHorizontal, Link as LinkIcon, MapPin, CheckCircle2 } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function AboutPage() {
-  const [isVisible, setIsVisible] = useState(false);
-  const storyView = useInView();
-  const valuesView = useInView();
-  const founderView = useInView();
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
   return (
-    <main className="relative min-h-screen overflow-x-hidden">
+    <main className="relative min-h-screen bg-background">
       <Navigation />
-
-      {/* Hero */}
-      <section className="relative pt-32 lg:pt-44 pb-20 lg:pb-28">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div
-            className={`transition-all duration-700 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
-              <span className="w-8 h-px bg-foreground/30" />
-              About Us
-            </span>
-          </div>
-
-          <h1
-            className={`text-5xl md:text-7xl lg:text-[8rem] font-display leading-[0.9] tracking-tight mb-8 transition-all duration-1000 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            About Whyn.
-          </h1>
-
-          <p
-            className={`text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-2xl transition-all duration-700 delay-200 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            The mind and vision behind whyn.dev
-          </p>
-        </div>
-      </section>
-
-      {/* Stats Grid */}
-      <section className="relative border-y border-foreground/10">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-foreground/10">
-            {stats.map((stat, index) => (
-              <div
-                key={stat.label}
-                className={`bg-background p-8 lg:p-12 transition-all duration-700 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-                style={{ transitionDelay: `${index * 100 + 300}ms` }}
-              >
-                <AnimatedCounter
-                  end={parseFloat(stat.value.replace(/[^0-9.]/g, ""))}
-                  suffix={stat.value.replace(/[0-9.]/g, "")}
-                />
-                <div className="mt-3 text-sm text-muted-foreground">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Our Story */}
-      <section className="relative py-24 lg:py-32">
-        <div ref={storyView.ref} className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
-            {/* Left: Content */}
-            <div
-              className={`transition-all duration-700 ${
-                storyView.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
-                <span className="w-8 h-px bg-foreground/30" />
-                Our Story
-              </span>
-              <h2 className="text-4xl lg:text-6xl font-display tracking-tight mb-10">
-                Where vision
-                <br />
-                <span className="text-stroke">meets craft.</span>
-              </h2>
-
-              <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
-                <p>
-                  Whyn was founded with the belief that great design and technology can transform
-                  businesses. We combine strategic thinking with creative excellence to craft digital
-                  solutions that truly matter.
-                </p>
-                <p>
-                  Our mission is to be your trusted partner in digital innovation. We work closely
-                  with our clients to understand their vision and deliver results that exceed
-                  expectations. Every project is an opportunity to create something extraordinary.
-                </p>
-                <p>
-                  Whether you&apos;re a startup establishing your brand or an established company ready for
-                  innovation — we&apos;re here to help you succeed.
-                </p>
-              </div>
-            </div>
-
-            {/* Right: Stat cards */}
-            <div
-              className={`grid grid-cols-2 gap-6 self-center transition-all duration-700 delay-200 ${
-                storyView.isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
-              }`}
-            >
-              {stats.map((stat, index) => (
-                <div
-                  key={stat.label}
-                  className={`border border-foreground/10 p-6 hover:border-foreground/30 transition-all duration-500 group ${
-                    storyView.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                  }`}
-                  style={{ transitionDelay: `${index * 100 + 300}ms` }}
-                >
-                  <div className="text-3xl lg:text-4xl font-display mb-2 group-hover:translate-x-1 transition-transform">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Values */}
-      <section className="relative py-24 lg:py-32 bg-foreground text-background overflow-hidden">
-        {/* Diagonal pattern */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `repeating-linear-gradient(
-                -45deg,
-                transparent,
-                transparent 40px,
-                currentColor 40px,
-                currentColor 41px
-              )`,
-            }}
-          />
-        </div>
-
-        <div ref={valuesView.ref} className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="mb-16 lg:mb-24">
-            <span className="inline-flex items-center gap-3 text-sm font-mono text-background/50 mb-6">
-              <span className="w-8 h-px bg-background/30" />
-              Our Values
-            </span>
-            <h2
-              className={`text-4xl lg:text-6xl font-display tracking-tight transition-all duration-700 ${
-                valuesView.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}
-            >
-              These principles guide
-              <br />
-              <span className="text-background/50">everything we do.</span>
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <div
-                key={value.title}
-                className={`transition-all duration-500 group ${
-                  valuesView.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
-              >
-                <div className="w-12 h-12 border border-background/20 flex items-center justify-center mb-6 group-hover:bg-background group-hover:text-foreground transition-colors duration-300">
-                  <value.icon className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-display mb-3 group-hover:translate-x-1 transition-transform">
-                  {value.title}
-                </h3>
-                <p className="text-background/60 leading-relaxed">{value.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Founder Section */}
-      <section className="relative py-24 lg:py-32">
-        <div ref={founderView.ref} className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            {/* Left: Visual */}
-            <div
-              className={`transition-all duration-700 ${
-                founderView.isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
-              }`}
-            >
-              <div className="border border-foreground/10 p-12 lg:p-16">
-                {/* Portrait placeholder */}
-                <div className="aspect-square bg-foreground/[0.02] border border-foreground/10 flex items-center justify-center mb-8">
-                  <div className="text-center">
-                    <div className="text-8xl font-display text-foreground/10 mb-2">K</div>
-                    <div className="text-sm font-mono text-foreground/20">Kerim Bilin</div>
-                  </div>
-                </div>
-
-                {/* Mini stats */}
-                <div className="grid grid-cols-3 gap-4">
-                  {[
-                    { value: "7.5M+", label: "Users Impacted" },
-                    { value: "92+", label: "Projects" },
-                    { value: "19", label: "Years Old" },
-                  ].map((stat) => (
-                    <div key={stat.label} className="text-center">
-                      <div className="text-2xl font-display">{stat.value}</div>
-                      <div className="text-xs text-muted-foreground font-mono">{stat.label}</div>
-                    </div>
-                  ))}
+      
+      {/* Instagram Profile Container */}
+      <section className="pt-32 pb-20 px-4 md:px-8 max-w-4xl mx-auto">
+        
+        {/* Profile Header Block */}
+        <div className="flex flex-col md:flex-row items-start gap-8 md:gap-16 mb-12">
+          
+          {/* Avatar (Left) */}
+          <div className="flex-shrink-0 mx-auto md:mx-0">
+            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full p-1 bg-gradient-to-tr from-primary to-accent">
+              <div className="w-full h-full rounded-full border-4 border-background overflow-hidden relative bg-secondary">
+                {/* Founder Avatar */}
+                <div className="absolute inset-0 flex items-center justify-center text-5xl font-display text-primary bg-background">
+                  N.
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Right: Content */}
-            <div
-              className={`transition-all duration-700 delay-200 ${
-                founderView.isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
-              }`}
-            >
-              <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
-                <span className="w-8 h-px bg-foreground/30" />
-                The Founder
-              </span>
-              <h2 className="text-4xl lg:text-6xl font-display tracking-tight mb-8">
-                One mind,
-                <br />
-                clear vision.
-              </h2>
-
-              <div className="space-y-6 text-lg text-muted-foreground leading-relaxed mb-12">
-                <p>
-                  I&apos;m Kerim Bilin — the sole mind behind Whyn. No big team, no unnecessary
-                  meetings, no wasted hours. As a young developer with innovative thinking, I work
-                  efficiently, with quality, and fast.
-                </p>
-                <p>
-                  I manage and execute everything myself to deliver the best result. No 500 hours of
-                  work for things that simply need to work. I&apos;m the best partner you&apos;ll find when it
-                  comes to excellence and getting things done.
-                </p>
-              </div>
-
-              <a href="/contact">
-                <Button
-                  size="lg"
-                  className="bg-foreground hover:bg-foreground/90 text-background px-10 h-14 text-base rounded-full group"
-                >
-                  Start Your Project
-                  <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+          {/* Info (Right) */}
+          <div className="flex-1 w-full flex flex-col pt-2">
+            
+            {/* Username & Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-6">
+              <h1 className="text-3xl font-semibold flex items-center gap-2 tracking-tight">
+                nishant.dev
+                <CheckCircle2 className="w-6 h-6 text-primary fill-primary/20" />
+              </h1>
+              
+              <div className="flex items-center gap-2 mb-4 md:mb-0 w-full sm:w-auto">
+                <Button className="bg-foreground text-background hover:bg-foreground/90 h-9 px-6 rounded-lg font-semibold w-full sm:w-auto">
+                  Hire WHYN
                 </Button>
-              </a>
+                <Button variant="secondary" className="bg-secondary hover:bg-secondary/80 text-foreground h-9 px-6 rounded-lg font-semibold w-full sm:w-auto">
+                  Connect
+                </Button>
+                <Button variant="secondary" size="icon" className="bg-secondary hover:bg-secondary/80 h-9 w-9 rounded-lg shrink-0">
+                  <MoreHorizontal className="w-5 h-5" />
+                </Button>
+              </div>
             </div>
+
+            {/* Stats */}
+            <div className="flex items-center gap-8 mb-6 text-base">
+              <div className="flex flex-col md:flex-row md:items-center gap-1">
+                <span className="font-semibold text-foreground">Next.js</span>
+                <span className="text-foreground/80">expert</span>
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center gap-1">
+                <span className="font-semibold text-foreground">Java</span>
+                <span className="text-foreground/80">backends</span>
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center gap-1">
+                <span className="font-semibold text-foreground">100%</span>
+                <span className="text-foreground/80">clean code</span>
+              </div>
+            </div>
+
+            {/* Bio */}
+            <div className="text-[15px] space-y-1">
+              <p className="font-semibold text-lg">Nishant Dev (Founder, WHYN)</p>
+              <p className="text-foreground/80 font-mono text-sm mb-2">Software Engineer @ DTCC | Ex-Nokia</p>
+              <p className="whitespace-pre-line leading-relaxed max-w-lg">
+                {"Building "}<span className="font-bold">WHYN</span>{", a developer-led studio for startups building serious apps.\n\n"}
+                {"We don't do slow, bloated agency websites. We build fast, scalable, production-ready software using React, Node.js, Spring Boot, and Kafka.\n\n"}
+                {"Real products. Clean architecture. No buzzwords."}
+              </p>
+              <div className="flex flex-wrap items-center gap-3 mt-4 mb-3 text-foreground/80 text-sm">
+                <span className="bg-secondary px-2 py-1 rounded-md">TypeScript</span>
+                <span className="bg-secondary px-2 py-1 rounded-md">Java</span>
+                <span className="bg-secondary px-2 py-1 rounded-md">Kafka</span>
+                <span className="bg-secondary px-2 py-1 rounded-md">LLMs / AI</span>
+              </div>
+              <div className="flex items-center gap-1 mb-2 text-foreground/80 pt-2">
+                <MapPin className="w-4 h-4" />
+                <span>Global Engineering Partner</span>
+              </div>
+              <Link href="https://whyn.dev" className="flex items-center gap-1 text-primary font-semibold hover:underline mt-1 w-fit">
+                <LinkIcon className="w-4 h-4" />
+                whyn.dev/build-with-us
+              </Link>
+            </div>
+
           </div>
         </div>
-      </section>
 
-      {/* Bottom CTA */}
-      <section className="relative py-24 lg:py-32 border-t border-foreground/10">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 text-center">
-          <span className="font-mono text-xs tracking-widest text-muted-foreground uppercase block mb-6">
-            Ready to collaborate?
-          </span>
-          <h2 className="text-4xl lg:text-7xl font-display tracking-tight mb-6 max-w-3xl mx-auto">
-            Let&apos;s create something
-            <br />
-            <span className="text-stroke">extraordinary.</span>
-          </h2>
-          <p className="text-xl text-muted-foreground mb-12 max-w-xl mx-auto">
-            Let&apos;s discuss your project and create something extraordinary together.
-          </p>
-          <a href="/contact">
-            <Button
-              size="lg"
-              className="bg-foreground hover:bg-foreground/90 text-background px-10 h-14 text-base rounded-full group"
-            >
-              Get in Touch
-              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </a>
+        {/* Highlights Row */}
+        <div className="flex gap-4 md:gap-8 overflow-x-auto pb-8 mb-4 scrollbar-hide px-2">
+          {[
+            { name: "SaaS", bg: "bg-secondary" },
+            { name: "Backends", bg: "bg-primary/20" },
+            { name: "Dashboards", bg: "bg-accent/20" },
+            { name: "AI Tools", bg: "bg-secondary" },
+            { name: "Infrastructure", bg: "bg-primary/30" },
+          ].map((item, i) => (
+            <div key={i} className="flex flex-col items-center gap-2 group cursor-pointer flex-shrink-0">
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border border-border p-1">
+                <div className={`w-full h-full rounded-full border border-border/50 ${item.bg} group-hover:opacity-80 transition-opacity flex items-center justify-center`}>
+                   <span className="text-[10px] md:text-xs uppercase tracking-widest opacity-80 font-mono text-center leading-tight">{item.name}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+
+        {/* Feed Tabs */}
+        <div className="border-t border-border flex justify-center gap-12 text-xs font-semibold uppercase tracking-widest text-muted-foreground pt-4 mb-4">
+          <div className="flex items-center gap-2 text-foreground border-t border-foreground -mt-[17px] pt-4 cursor-pointer">
+            <svg aria-label="" className="w-3 h-3 fill-current" height="12" role="img" viewBox="0 0 24 24" width="12"><rect fill="none" height="18" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" width="18" x="3" y="3"></rect><line fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" x1="9.015" x2="9.015" y1="3" y2="21"></line><line fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" x1="14.985" x2="14.985" y1="3" y2="21"></line><line fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" x1="21" x2="3" y1="9.015" y2="9.015"></line><line fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" x1="21" x2="3" y1="14.985" y2="14.985"></line></svg>
+            Posts
+          </div>
+          <div className="flex items-center gap-2 cursor-pointer hover:text-foreground transition-colors pt-4 -mt-[17px]">
+            <svg aria-label="" className="w-3 h-3 fill-current" height="12" role="img" viewBox="0 0 24 24" width="12"><polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></polygon></svg>
+            Saved
+          </div>
+          <div className="flex items-center gap-2 cursor-pointer hover:text-foreground transition-colors pt-4 -mt-[17px]">
+            <svg aria-label="" className="w-3 h-3 fill-current" height="12" role="img" viewBox="0 0 24 24" width="12"><path d="M10.201 3.797 12 1.997l1.799 1.8a1.59 1.59 0 0 0 1.124.465h5.259A1.818 1.818 0 0 1 22 6.08v14.104a1.818 1.818 0 0 1-1.818 1.818H3.818A1.818 1.818 0 0 1 2 20.184V6.08a1.818 1.818 0 0 1 1.818-1.818h5.26a1.59 1.59 0 0 0 1.123-.465Z" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path><path d="M18.598 22.002V21.4a3.949 3.949 0 0 0-3.948-3.949H9.495A3.949 3.949 0 0 0 5.546 21.4v.603" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path><circle cx="12.072" cy="11.075" fill="none" r="3.556" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></circle></svg>
+            Tagged
+          </div>
         </div>
+
+        {/* 3x3 Grid Feed */}
+        <div className="grid grid-cols-3 gap-1 md:gap-4 mt-2">
+          {[...Array(9)].map((_, i) => (
+            <div key={i} className="aspect-square bg-secondary relative group cursor-pointer overflow-hidden rounded-sm md:rounded-md">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-50" />
+              {/* Optional top-right icon */}
+              {i % 3 === 0 && (
+                 <Copy className="absolute top-2 right-2 w-4 h-4 text-white drop-shadow-md z-10" />
+              )}
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-6 z-20">
+                <div className="flex items-center gap-1.5 text-white font-semibold">
+                  <span>❤️</span> {Math.floor(Math.random() * 500) + 100}
+                </div>
+                <div className="flex items-center gap-1.5 text-white font-semibold">
+                  <span>💬</span> {Math.floor(Math.random() * 50) + 5}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
       </section>
 
       <FooterSection />

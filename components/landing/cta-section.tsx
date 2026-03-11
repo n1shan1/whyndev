@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { AnimatedTetrahedron } from "./animated-tetrahedron";
 
 export function CtaSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -47,50 +46,48 @@ export function CtaSection() {
             }}
           />
           
-          <div className="relative z-10 px-8 lg:px-16 py-16 lg:py-24">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-              {/* Left content */}
-              <div className="flex-1">
-                <h2 className="text-4xl lg:text-7xl font-display tracking-tight mb-8 leading-[0.95]">
-                  Ready for your project?
-                </h2>
+          <div className="relative z-10 px-8 lg:px-16 py-16 lg:py-24 max-w-4xl mx-auto text-center">
+            <h2 className="text-5xl lg:text-7xl font-display tracking-tight mb-8 leading-[0.95]">
+              Let's build something <span className="text-primary italic">crazy.</span>
+            </h2>
 
-                <p className="text-xl text-muted-foreground mb-12 leading-relaxed max-w-xl">
-                  Book a free intro call. Let's discuss your vision and create something extraordinary together.
-                </p>
+            <p className="text-xl text-muted-foreground mb-12 leading-relaxed max-w-2xl mx-auto">
+              No cap. We're ready to take your brand from zero to one hundred. 
+              Book a free intro call and let's create the next big thing together.
+            </p>
 
-                <div className="flex flex-col sm:flex-row items-start gap-4">
-                  <Button
-                    size="lg"
-                    className="bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full group"
-                  >
-                    Book a Call
-                    <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="h-14 px-8 text-base rounded-full border-foreground/20 hover:bg-foreground/5"
-                  >
-                    See Our Work
-                  </Button>
-                </div>
-
-                <p className="text-sm text-muted-foreground mt-8 font-mono">
-                  Response guaranteed in 12 hours
-                </p>
-              </div>
-
-              {/* Right animation */}
-              <div className="hidden lg:flex items-center justify-center w-[500px] h-[500px] -mr-16">
-                <AnimatedTetrahedron />
-              </div>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+              <a href="/contact">
+                <Button
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-10 h-16 text-lg rounded-full group relative overflow-hidden transition-all duration-300 hover:shadow-[0_0_50px_-10px_rgba(212,175,55,0.8)] hover:-translate-y-1"
+                >
+                  <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-[150%] skew-x-[-30deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-out" />
+                  <span className="relative z-10 flex items-center">
+                    Let's Cook
+                    <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </Button>
+              </a>
+              <a href="/portfolio">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="h-16 px-10 text-lg rounded-full border-foreground/20 hover:bg-foreground/5 transition-all hover:border-foreground/40"
+                >
+                  See The Receipts
+                </Button>
+              </a>
             </div>
+
+            <p className="text-sm text-primary/70 mt-8 font-mono tracking-widest uppercase">
+              // Reply guaranteed in 12 hours
+            </p>
           </div>
 
           {/* Decorative corner */}
-          <div className="absolute top-0 right-0 w-32 h-32 border-b border-l border-foreground/10" />
-          <div className="absolute bottom-0 left-0 w-32 h-32 border-t border-r border-foreground/10" />
+          <div className="absolute top-0 right-0 w-32 h-32 border-b border-l border-primary/20" />
+          <div className="absolute bottom-0 left-0 w-32 h-32 border-t border-r border-primary/20" />
         </div>
       </div>
     </section>

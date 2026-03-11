@@ -1,337 +1,204 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigation } from "@/components/landing/navigation";
 import { FooterSection } from "@/components/landing/footer-section";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Brain, Zap, Users, Code, Check } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, ShoppingCart, Search, Globe, LayoutTemplate } from "lucide-react";
+import Link from "next/link";
 
 const services = [
   {
-    id: "ai-conversion",
-    number: "01",
-    icon: Brain,
-    title: "AI Conversion Websites",
-    tagline: "Websites engineered to convert, powered by intelligence.",
-    description:
-      "We build AI-powered websites that dynamically adapt to user behavior, optimizing layouts, copy, and CTAs in real-time for maximum conversion rates.",
+    id: "landing-page",
+    title: "Landing Page Development",
+    tagline: "High-converting, single-page websites.",
+    description: "We build clean, fast, and optimized landing pages designed specifically to capture leads and drive sales.",
+    icon: Globe,
     features: [
-      "Dynamic content personalization",
-      "AI-driven A/B testing automation",
-      "Heatmap-informed layout optimization",
-      "Conversion funnel analytics dashboard",
-      "Smart form optimization",
-      "PageSpeed 100 performance guarantee",
+      "Custom responsive design",
+      "Lead capture forms",
+      "Fast load performance",
+      "Mobile optimized",
+      "Basic SEO setup",
+      "Direct CTA placement",
     ],
-    process: [
-      { step: "01", label: "Research" },
-      { step: "02", label: "Design" },
-      { step: "03", label: "Build" },
-      { step: "04", label: "Optimize" },
-    ],
-    outcomes: [
-      { value: "+248%", label: "avg. user growth" },
-      { value: "45%", label: "lower bounce rates" },
-      { value: "3x", label: "faster load times" },
-    ],
-    price: "From $3,500",
+    process: ["01 Scope", "02 Content", "03 Design", "04 Launch"],
+    outcomes: ["Higher conversion rates", "Clean user experience", "Lightning fast load times"],
+    price: "From $500",
   },
   {
-    id: "ai-leads",
-    number: "02",
-    icon: Zap,
-    title: "AI Lead Capture Systems",
-    tagline: "Capture, qualify, and nurture leads automatically.",
-    description:
-      "Intelligent lead capture systems that go beyond simple forms. Our AI qualifies prospects, scores leads, and triggers personalized follow-up sequences — all on autopilot.",
+    id: "multi-page",
+    title: "Multi-Page Websites",
+    tagline: "Comprehensive digital presence for your business.",
+    description: "Full-scale corporate websites with multiple pages outlining your services, about, contact, and content.",
+    icon: LayoutTemplate,
     features: [
-      "Smart lead scoring algorithms",
-      "Behavioral trigger automation",
-      "Multi-step intelligent forms",
-      "CRM integration (HubSpot, Salesforce)",
-      "Personalized email sequences",
-      "Real-time lead quality analytics",
+      "Up to 10 custom pages",
+      "CMS Integration",
+      "Advanced responsive layouts",
+      "Contact & Booking forms",
+      "Blog/News integration",
+      "Performance optimization",
     ],
-    process: [
-      { step: "01", label: "Map" },
-      { step: "02", label: "Build" },
-      { step: "03", label: "Integrate" },
-      { step: "04", label: "Scale" },
-    ],
-    outcomes: [
-      { value: "60%", label: "lead qualification rate" },
-      { value: "3x", label: "faster response time" },
-      { value: "40%", label: "higher close rates" },
-    ],
-    price: "From $5,000",
+    process: ["01 Strategy", "02 Wireframe", "03 Develop", "04 Test"],
+    outcomes: ["Professional brand image", "Scalable architecture", "Higher engagement"],
+    price: "From $1,200",
   },
   {
-    id: "ai-chat",
-    number: "03",
-    icon: Users,
-    title: "AI Chat Sales Assistants",
-    tagline: "Your 24/7 sales team that never sleeps.",
-    description:
-      "Custom AI chatbots trained on your business data, products, and sales processes. They qualify leads, answer questions, and guide visitors through to purchase — around the clock.",
+    id: "ecommerce",
+    title: "E-Commerce Stores",
+    tagline: "Online shops built to sell.",
+    description: "Robust e-commerce platforms with secure checkouts, inventory management, and optimized product pages.",
+    icon: ShoppingCart,
     features: [
-      "Custom-trained on your business",
-      "Natural conversation handling",
-      "Product recommendation engine",
-      "Appointment booking integration",
-      "Handoff to human agents",
-      "Multi-language support",
+      "Secure payment gateways",
+      "Product inventory system",
+      "Cart & Checkout flow",
+      "Order management",
+      "Mobile commerce friendly",
+      "Analytics integration",
     ],
-    process: [
-      { step: "01", label: "Train" },
-      { step: "02", label: "Design" },
-      { step: "03", label: "Deploy" },
-      { step: "04", label: "Learn" },
-    ],
-    outcomes: [
-      { value: "80%", label: "query resolution rate" },
-      { value: "50%", label: "more qualified meetings" },
-      { value: "24/7", label: "availability" },
-    ],
-    price: "From $4,000",
+    process: ["01 Plan", "02 Setup", "03 Integrate", "04 Launch"],
+    outcomes: ["Seamless checkout", "Higher average order value", "Secure transactions"],
+    price: "From $3,000",
   },
   {
-    id: "saas",
-    number: "04",
-    icon: Code,
-    title: "SaaS / Web App Development",
-    tagline: "Full-stack applications built for scale.",
-    description:
-      "From MVPs to enterprise platforms — we architect and build web applications using modern frameworks, scalable infrastructure, and clean code practices.",
+    id: "seo",
+    title: "SEO Optimization",
+    tagline: "Rank higher on search engines.",
+    description: "Comprehensive SEO audits and implementations to ensure your new or existing website ranks for the keywords that matter.",
+    icon: Search,
     features: [
-      "Full-stack Next.js / React",
-      "Scalable database architecture",
-      "Authentication & authorization",
-      "API design and integration",
-      "Real-time features (WebSocket)",
-      "CI/CD pipeline setup",
+      "Technical SEO auditing",
+      "On-page keyword optimization",
+      "Performance & Core Web Vitals",
+      "Meta tags & schema markup",
+      "Sitemap & robots.txt",
+      "Local SEO setup",
     ],
-    process: [
-      { step: "01", label: "Scope" },
-      { step: "02", label: "Architect" },
-      { step: "03", label: "Develop" },
-      { step: "04", label: "Launch" },
-    ],
-    outcomes: [
-      { value: "8-12", label: "weeks to production" },
-      { value: "99.9%", label: "uptime SLA" },
-      { value: "∞", label: "scalability" },
-    ],
-    price: "From $10,000",
+    process: ["01 Audit", "02 Keyword Mapping", "03 Implement", "04 Monitor"],
+    outcomes: ["Higher organic traffic", "Better search visibility", "Quality inbound leads"],
+    price: "From $800",
   },
 ];
 
-function ServiceCard({ service, index }: { service: (typeof services)[0]; index: number }) {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  const isReversed = index % 2 !== 0;
-
-  return (
-    <div
-      id={service.id}
-      ref={ref}
-      className={`relative transition-all duration-1000 ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-      }`}
-    >
-      {/* Service number watermark */}
-      <div className="absolute -top-16 right-0 text-[12rem] font-display text-foreground/[0.03] leading-none select-none pointer-events-none hidden lg:block">
-        {service.number}
-      </div>
-
-      <div className={`grid lg:grid-cols-2 gap-16 lg:gap-24 ${isReversed ? "lg:direction-rtl" : ""}`}>
-        {/* Content side */}
-        <div className={`${isReversed ? "lg:order-2" : ""}`}>
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 border border-foreground/10 flex items-center justify-center">
-              <service.icon className="w-6 h-6" />
-            </div>
-            <span className="font-mono text-sm text-muted-foreground">{service.number}</span>
-          </div>
-
-          <h3 className="text-3xl lg:text-5xl font-display tracking-tight mb-4">{service.title}</h3>
-          <p className="text-xl text-accent font-display mb-6">{service.tagline}</p>
-          <p className="text-lg text-muted-foreground leading-relaxed mb-10">{service.description}</p>
-
-          {/* Features */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-            {service.features.map((feature, i) => (
-              <div
-                key={feature}
-                className={`flex items-start gap-3 transition-all duration-500 ${
-                  isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
-                }`}
-                style={{ transitionDelay: `${i * 80 + 200}ms` }}
-              >
-                <Check className="w-4 h-4 mt-1 text-accent shrink-0" />
-                <span className="text-sm text-foreground/80">{feature}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Price */}
-          <div className="inline-flex items-baseline gap-3 px-6 py-3 border border-foreground/10">
-            <span className="font-display text-3xl">{service.price}</span>
-          </div>
-        </div>
-
-        {/* Visual side */}
-        <div className={`${isReversed ? "lg:order-1" : ""}`}>
-          {/* Process */}
-          <div className="border border-foreground/10 mb-8">
-            <div className="px-6 py-4 border-b border-foreground/10 flex items-center justify-between">
-              <span className="font-mono text-sm text-muted-foreground">Process</span>
-              <span className="font-mono text-xs text-muted-foreground">workflow.ts</span>
-            </div>
-            <div className="p-8">
-              <div className="grid grid-cols-4 gap-4">
-                {service.process.map((step, i) => (
-                  <div
-                    key={step.step}
-                    className={`text-center transition-all duration-500 ${
-                      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                    }`}
-                    style={{ transitionDelay: `${i * 100 + 400}ms` }}
-                  >
-                    <div className="text-3xl font-display mb-2 text-foreground/20">{step.step}</div>
-                    <div className="text-sm font-mono text-muted-foreground">{step.label}</div>
-                    {i < 3 && (
-                      <div className="hidden sm:block absolute">
-                        <ArrowRight className="w-3 h-3 text-foreground/10" />
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-              {/* Progress bar */}
-              <div className="mt-6 h-px bg-foreground/10 overflow-hidden">
-                <div
-                  className={`h-full bg-accent transition-all duration-2000 ease-out ${
-                    isVisible ? "w-full" : "w-0"
-                  }`}
-                  style={{ transitionDelay: "600ms" }}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Outcomes */}
-          <div className="grid grid-cols-3 gap-px bg-foreground/10">
-            {service.outcomes.map((outcome, i) => (
-              <div
-                key={outcome.label}
-                className={`bg-background p-6 text-center transition-all duration-500 ${
-                  isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
-                }`}
-                style={{ transitionDelay: `${i * 100 + 600}ms` }}
-              >
-                <div className="text-2xl lg:text-3xl font-display mb-1">{outcome.value}</div>
-                <div className="text-xs text-muted-foreground font-mono">{outcome.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function ServicesPage() {
   const [isVisible, setIsVisible] = useState(false);
-  const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden">
+    <main className="relative min-h-screen noise-overlay">
       <Navigation />
-
-      {/* Hero */}
-      <section ref={heroRef} className="relative pt-32 lg:pt-44 pb-20 lg:pb-28">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div
-            className={`transition-all duration-700 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
-              <span className="w-8 h-px bg-foreground/30" />
-              What We Build
-            </span>
-          </div>
-
-          <h1
-            className={`text-5xl md:text-7xl lg:text-[8rem] font-display leading-[0.9] tracking-tight mb-8 transition-all duration-1000 ${
+      
+      {/* Header */}
+      <section className="pt-40 lg:pt-48 pb-16 px-6 lg:px-12 max-w-[1400px] mx-auto text-center">
+        <Badge variant="outline" className="mb-6 px-4 py-1 border-primary/20 bg-background/50 font-mono text-xs">
+          What We Build
+        </Badge>
+        <h1 className={`text-5xl lg:text-7xl font-display tracking-tight text-foreground mb-6 transition-all duration-1000 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            AI-Powered
-            <br />
-            <span className="text-stroke">Digital Solutions</span>
-          </h1>
-
-          <p
-            className={`text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-2xl transition-all duration-700 delay-200 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            From intelligent websites to custom AI systems — engineering solutions that drive
-            measurable business growth.
-          </p>
-        </div>
+            }`}>
+          Digital <span className="text-accent underline decoration-accent/30 underline-offset-8">Growth</span> Solutions
+        </h1>
+        <p className={`text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed transition-all duration-1000 delay-200 ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}>
+          From optimized landing pages to comprehensive e-commerce platforms — engineering websites that drive your business forward.
+        </p>
       </section>
 
-      {/* Services */}
-      <section className="relative pb-24 lg:pb-32">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="space-y-32 lg:space-y-48">
-            {services.map((service, index) => (
-              <ServiceCard key={service.id} service={service} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Bottom CTA */}
-      <section className="relative py-24 lg:py-32 border-t border-foreground/10">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 text-center">
-          <span className="font-mono text-xs tracking-widest text-muted-foreground uppercase block mb-6">
-            Not sure which service fits?
-          </span>
-          <h2 className="text-4xl lg:text-6xl font-display tracking-tight mb-6 max-w-3xl mx-auto">
-            Book a free consultation
-          </h2>
-          <p className="text-xl text-muted-foreground mb-12 max-w-xl mx-auto">
-            We&apos;ll recommend the best approach for your business goals.
-          </p>
-          <a href="/contact">
-            <Button
-              size="lg"
-              className="bg-foreground hover:bg-foreground/90 text-background px-10 h-14 text-base rounded-full group"
+      {/* Services List */}
+      <section className="px-6 lg:px-12 pb-32 max-w-[1400px] mx-auto space-y-24">
+        {services.map((service) => {
+          const Icon = service.icon;
+          return (
+            <div 
+              key={service.id} 
+              id={service.id}
+              className="scroll-mt-32 grid lg:grid-cols-12 gap-12 items-start"
             >
-              Book Free Consultation
-              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </a>
-        </div>
+              {/* Left Column: Title & Intro */}
+              <div className="lg:col-span-5 sticky top-32">
+                <div className="w-16 h-16 rounded-2xl bg-primary text-primary-foreground flex items-center justify-center mb-6 shadow-xl">
+                  <Icon className="w-8 h-8" />
+                </div>
+                <h2 className="text-3xl lg:text-4xl font-display mb-4">{service.title}</h2>
+                <h3 className="text-xl font-medium text-accent mb-4">{service.tagline}</h3>
+                <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                  {service.description}
+                </p>
+                
+                <div className="inline-block border border-border rounded-lg px-6 py-4 bg-background">
+                  <span className="block text-sm text-muted-foreground uppercase tracking-widest mb-1 font-mono">Starting At</span>
+                  <span className="text-2xl font-display">{service.price}</span>
+                </div>
+              </div>
+
+              {/* Right Column: Grid Details */}
+              <div className="lg:col-span-7 grid sm:grid-cols-2 gap-6">
+                
+                {/* Features Box */}
+                <div className="sm:col-span-2 bg-secondary/30 border border-border/50 rounded-2xl p-8 hover-lift">
+                  <h4 className="text-sm font-mono text-muted-foreground uppercase tracking-wider mb-6">Core Features</h4>
+                  <ul className="grid sm:grid-cols-2 gap-4">
+                    {service.features.map((feature, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
+                        <span className="text-foreground/80">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Process Box */}
+                <div className="bg-background border border-border/50 rounded-2xl p-8 hover-lift">
+                  <h4 className="text-sm font-mono text-muted-foreground uppercase tracking-wider mb-6">Process</h4>
+                  <ul className="space-y-4">
+                    {service.process.map((step, i) => (
+                      <li key={i} className="flex items-baseline gap-4 font-display text-lg text-foreground/90 border-b border-border/50 pb-2 last:border-0">
+                        {step}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Outcomes Box */}
+                <div className="bg-primary text-primary-foreground rounded-2xl p-8 hover-lift shadow-xl">
+                  <h4 className="text-sm font-mono text-primary-foreground/60 uppercase tracking-wider mb-6">Avg. Outcomes</h4>
+                  <ul className="space-y-4">
+                    {service.outcomes.map((outcome, i) => (
+                      <li key={i} className="flex items-start gap-3 text-lg">
+                        <ArrowRight className="w-5 h-5 shrink-0 opacity-50 mt-1" />
+                        <span>{outcome}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+          )
+        })}
+      </section>
+
+      {/* CTA Bottom */}
+      <section className="px-6 lg:px-12 pb-32 max-w-[1400px] mx-auto text-center">
+         <div className="bg-secondary/40 border border-border/50 rounded-3xl p-12 lg:p-20 relative overflow-hidden backdrop-blur-sm">
+            <h2 className="text-3xl lg:text-5xl font-display mb-6">Not sure which service fits?</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
+              Book a free consultation and we'll recommend the best approach for your business goals.
+            </p>
+            <Link href="/contact" passHref legacyBehavior>
+              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 h-14 text-base rounded-full group cursor-pointer inline-flex items-center">
+                Book Free Consultation
+                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+         </div>
       </section>
 
       <FooterSection />

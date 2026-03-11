@@ -24,13 +24,6 @@ const testimonials = [
     company: "Thorne & Co",
     metric: "100% satisfied",
   },
-  {
-    quote: "The AI integration transformed our lead generation. We're seeing 3x qualified meetings.",
-    author: "Elena Rodriguez",
-    role: "Marketing Director",
-    company: "Growth Ventures",
-    metric: "3x qualified meetings",
-  },
 ];
 
 export function TestimonialsSection() {
@@ -148,7 +141,7 @@ export function TestimonialsSection() {
         <div className="flex gap-16 items-center marquee">
           {[...Array(2)].map((_, setIdx) => (
             <div key={setIdx} className="flex gap-16 items-center shrink-0">
-              {["TechFlow", "Bloom Media", "Thorne & Co", "Growth Ventures", "Propvex Capital", "Steakclub NY", "Car Company", "Moussa Export"].map(
+              {["TechFlow", "Bloom Media", "Thorne & Co", "Propvex Capital", "Steakclub NY", "Car Company", "Moussa Export"].map(
                 (company) => (
                   <span
                     key={`${setIdx}-${company}`}

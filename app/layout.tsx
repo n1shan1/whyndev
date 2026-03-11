@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Poppins, Lora, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import { AmbientCursorGlow } from "@/components/landing/ambient-cursor-glow"
 
 const poppins = Poppins({ 
   subsets: ["latin"],
@@ -33,10 +34,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className={`${lora.variable} ${poppins.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+        <AmbientCursorGlow />
         {children}
-        <Analytics />
+        {/* <Analytics /> */}
       </body>
     </html>
   )

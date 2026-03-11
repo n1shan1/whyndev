@@ -52,7 +52,7 @@ const metrics = [
     label: "Projects Completed",
   },
   { 
-    value: 7, 
+    value: 7.5, 
     suffix: "M+", 
     prefix: "",
     label: "Users Reached",
