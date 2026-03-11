@@ -2,20 +2,9 @@
 
 import { useEffect, useState, useRef } from "react";
 
-const integrations = [
-  { name: "Next.js", category: "Web Framework" },
-  { name: "React", category: "UI Library" },
-  { name: "TypeScript", category: "Language" },
-  { name: "Tailwind CSS", category: "Styling" },
-  { name: "Stripe", category: "Payments" },
-  { name: "HubSpot", category: "CRM" },
-  { name: "Salesforce", category: "CRM" },
-  { name: "OpenAI", category: "AI" },
-  { name: "Vercel", category: "Hosting" },
-  { name: "Supabase", category: "Backend" },
-  { name: "Google Analytics", category: "Analytics" },
-  { name: "Figma", category: "Design" },
-];
+import { INTEGRATIONS_SECTION } from "./constants";
+
+const integrations = INTEGRATIONS_SECTION.integrations;
 
 export function IntegrationsSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -44,16 +33,16 @@ export function IntegrationsSection() {
         >
           <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
             <span className="w-8 h-px bg-foreground/30" />
-            Integrations
+            {INTEGRATIONS_SECTION.eyebrow}
             <span className="w-8 h-px bg-foreground/30" />
           </span>
           <h2 className="text-4xl lg:text-6xl font-display tracking-tight mb-6">
-            Modern tech stack
+            {INTEGRATIONS_SECTION.headline[0]}
             <br />
-            you can trust.
+            {INTEGRATIONS_SECTION.headline[1]}
           </h2>
           <p className="text-xl text-muted-foreground">
-            Best-in-class tools and frameworks. We stay current with industry standards.
+            {INTEGRATIONS_SECTION.description}
           </p>
         </div>
 

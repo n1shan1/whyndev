@@ -10,6 +10,7 @@ import { SecuritySection } from "@/components/landing/security-section";
 import { DevelopersSection } from "@/components/landing/developers-section";
 import { TestimonialsSection } from "@/components/landing/testimonials-section";
 import { PricingSection } from "@/components/landing/pricing-section";
+import { BlogSection } from "@/components/landing/blog-section";
 import { CtaSection } from "@/components/landing/cta-section";
 import { FooterSection } from "@/components/landing/footer-section";
 
@@ -17,24 +18,31 @@ export default function Home() {
   return (
     <main className="relative min-h-screen overflow-x-hidden noise-overlay">
       <Navigation />
-      <HeroSection />
       
-      {/* Brand & Mission */}
+      {/* Hook */}
+      <HeroSection />
+
+      {/* The Problem & Our Approach */}
       <AgencyAboutSection />
 
-      {/* Social Proof */}
-      <IntegrationsSection />
-      
-      {/* Main Offering */}
+      {/* The Solution */}
       <FeaturesSection />
+
+      {/* Social Proof & Impact */}
       <MetricsSection />
-      <SecuritySection />
-      
-      {/* Proof of Work */}
-      <DevelopersSection />
       <TestimonialsSection />
-      
+
+      {/* The Engine & Trust */}
+      <IntegrationsSection />
+      <SecuritySection />
+      <DevelopersSection />
+
+      {/* The Offer */}
       <PricingSection />
+      
+      {/* SEO & Insights */}
+      <BlogSection />
+      
       <CtaSection />
       <FooterSection />
     </main>

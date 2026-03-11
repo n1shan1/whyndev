@@ -3,78 +3,10 @@
 import { useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
 
-const plans = [
-  {
-    name: "Landing Page",
-    description: "Single high-converting page",
-    price: { monthly: 69, annual: 69 },
-    oneTime: "$900 – $1,500",
-    features: [
-      "Single landing page",
-      "AI lead capture form",
-      "Fast load performance",
-      "Mobile optimized",
-      "Basic analytics",
-    ],
-    cta: "Get Started",
-    popular: false,
-    tier: "starter" as const,
-  },
-  {
-    name: "Starter",
-    description: "Perfect for growing businesses",
-    price: { monthly: 149, annual: 149 },
-    oneTime: "$2,000 – $3,500",
-    features: [
-      "Up to 5 pages",
-      "AI chat assistant",
-      "Conversion optimized",
-      "SEO foundation",
-      "Responsive design",
-      "GDPR compliant",
-    ],
-    cta: "Get Started",
-    popular: true,
-    tier: "popular" as const,
-  },
-  {
-    name: "Standard",
-    description: "For established businesses",
-    price: { monthly: 249, annual: 249 },
-    oneTime: "$5,000 – $8,000",
-    features: [
-      "Up to 10 pages",
-      "Advanced AI lead capture",
-      "Conversion analytics",
-      "Automated email flows",
-      "Performance optimization",
-    ],
-    cta: "Get Started",
-    popular: false,
-    tier: "premium" as const,
-  },
-];
+import { PRICING_SECTION } from "./constants";
 
-const tierStyles = {
-  starter: {
-    card: "bg-gradient-to-b from-background to-blue-950/10 border border-blue-500/15 hover:border-blue-500/30 hover:shadow-[0_8px_40px_-12px_rgba(59,130,246,0.15)]",
-    badge: "",
-    button: "bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-600/20",
-    check: "text-blue-500",
-  },
-  popular: {
-    card: "bg-gradient-to-b from-accent/5 via-background to-accent/10 border-2 border-accent/40 hover:border-accent/60 hover:shadow-[0_8px_40px_-12px_rgba(217,119,87,0.25)]",
-    badge: "bg-accent text-white",
-    button: "bg-accent text-white hover:bg-accent/90 shadow-lg shadow-accent/25",
-    check: "text-accent",
-  },
-  premium: {
-    card: "bg-gradient-to-b from-background via-amber-950/5 to-amber-950/15 border border-amber-500/20 hover:border-amber-500/40 hover:shadow-[0_8px_40px_-12px_rgba(245,158,11,0.15)]",
-    badge: "",
-    button: "bg-gradient-to-r from-amber-600 to-amber-500 text-white hover:from-amber-700 hover:to-amber-600 shadow-lg shadow-amber-600/20",
-    check: "text-amber-500",
-  },
-};
+const plans = PRICING_SECTION.plans;
+const tierStyles = PRICING_SECTION.tierStyles;
 
 export function PricingSection() {
   const [isAnnual, setIsAnnual] = useState(true);
@@ -85,22 +17,22 @@ export function PricingSection() {
         {/* Header */}
         <div className="max-w-3xl mb-20">
           <span className="font-mono text-xs tracking-widest text-muted-foreground uppercase block mb-6">
-            Pricing Plans
+            {PRICING_SECTION.eyebrow}
           </span>
           <h2 className="font-display text-5xl md:text-6xl lg:text-7xl tracking-tight text-foreground mb-6">
-            Transparent pricing
+            {PRICING_SECTION.headline[0]}
             <br />
-            <span className="text-stroke">for growth</span>
+            <span className="text-stroke">{PRICING_SECTION.headline[1]}</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-xl">
-            Built for startups that want websites that convert. No hidden fees, no surprises.
+            {PRICING_SECTION.description}
           </p>
         </div>
 
         {/* Free Consultation Note */}
         <div className="flex items-center gap-4 mb-16 text-sm text-muted-foreground">
           <span className="font-mono">•</span>
-          <p>Free initial consultation • Response guaranteed in 12h • Non-binding quote</p>
+          <p>{PRICING_SECTION.consultationNote}</p>
         </div>
 
         {/* Pricing Cards */}
@@ -163,13 +95,13 @@ export function PricingSection() {
 
         {/* Bottom Note */}
         <p className="mt-12 text-center text-sm text-muted-foreground">
-          All plans include unlimited updates, mobile optimization, and analytics.{" "}
+          {PRICING_SECTION.bottomNote}{" "}
           <a href="/pricing" className="underline underline-offset-4 hover:text-foreground transition-colors">
-            View all plans
+            {PRICING_SECTION.links.viewAll}
           </a>
           {" · "}
           <a href="/contact" className="underline underline-offset-4 hover:text-foreground transition-colors">
-            Custom solution? Book consultation
+            {PRICING_SECTION.links.custom}
           </a>
         </p>
       </div>

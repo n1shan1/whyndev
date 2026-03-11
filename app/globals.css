@@ -224,3 +224,12 @@
     background-size: 100% 100%, 8px 8px;
   }
 }
+
+@keyframes sweep-shine {
+  0% { transform: translateX(-150%) skewX(-30deg); }
+  100% { transform: translateX(150%) skewX(-30deg); }
+}
+.animate-sweep-shine {
+  animation: sweep-shine 1.5s ease-in-out forwards;
+}
+

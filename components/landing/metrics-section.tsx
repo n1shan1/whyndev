@@ -44,32 +44,10 @@ function AnimatedCounter({ end, suffix = "", prefix = "" }: { end: number; suffi
   );
 }
 
-const metrics = [
-  { 
-    value: 92, 
-    suffix: "+", 
-    prefix: "",
-    label: "Projects Completed",
-  },
-  { 
-    value: 7.5, 
-    suffix: "M+", 
-    prefix: "",
-    label: "Users Reached",
-  },
-  { 
-    value: 100, 
-    suffix: "%", 
-    prefix: "",
-    label: "Client Satisfaction",
-  },
-  { 
-    value: 24, 
-    suffix: "h", 
-    prefix: "",
-    label: "Avg Response Time",
-  },
-];
+import { METRICS_SECTION as metricsData } from "./constants";
+
+const metrics = metricsData.metrics;
+
 
 export function MetricsSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -95,22 +73,22 @@ export function MetricsSection() {
           <div>
             <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
               <span className="w-8 h-px bg-foreground/30" />
-              Our Impact
+              {metricsData.eyebrow}
             </span>
             <h2
               className={`text-4xl lg:text-6xl font-display tracking-tight transition-all duration-700 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
             >
-              Results you
+              {metricsData.headline[0]}
               <br />
-              can trust.
+              {metricsData.headline[1]}
             </h2>
           </div>
           <div className="flex items-center gap-4 font-mono text-sm text-muted-foreground">
             <span className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              Verified
+              {metricsData.verified}
             </span>
           </div>
         </div>

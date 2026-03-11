@@ -2,14 +2,9 @@
 
 import { useEffect, useState, useRef } from "react";
 
-const locations = [
-  { city: "Next.js", region: "React Framework", latency: "Production Ready" },
-  { city: "Tailwind CSS", region: "Design System", latency: "Responsive" },
-  { city: "TypeScript", region: "Type Safe", latency: "Maintainable" },
-  { city: "Vercel", region: "Deployment", latency: "Global CDN" },
-  { city: "Supabase", region: "Database", latency: "Real-time" },
-  { city: "OpenAI", region: "AI Integration", latency: "Smart" },
-];
+import { INFRASTRUCTURE_SECTION } from "./constants";
+
+const locations = INFRASTRUCTURE_SECTION.locations;
 
 export function InfrastructureSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -47,31 +42,25 @@ export function InfrastructureSection() {
           >
             <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
               <span className="w-8 h-px bg-foreground/30" />
-              Technology Stack
+              {INFRASTRUCTURE_SECTION.eyebrow}
             </span>
             <h2 className="text-4xl lg:text-6xl font-display tracking-tight mb-8">
-              Built with modern
+              {INFRASTRUCTURE_SECTION.headline[0]}
               <br />
-              technologies.
+              {INFRASTRUCTURE_SECTION.headline[1]}
             </h2>
             <p className="text-xl text-muted-foreground leading-relaxed mb-12">
-              We use industry-leading tools and frameworks to build fast, scalable, and maintainable solutions that stand the test of time.
+              {INFRASTRUCTURE_SECTION.description}
             </p>
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-8">
-              <div>
-                <div className="text-4xl lg:text-5xl font-display mb-2">100</div>
-                <div className="text-sm text-muted-foreground">PageSpeed Score</div>
-              </div>
-              <div>
-                <div className="text-4xl lg:text-5xl font-display mb-2">99.9%</div>
-                <div className="text-sm text-muted-foreground">Uptime Guarantee</div>
-              </div>
-              <div>
-                <div className="text-4xl lg:text-5xl font-display mb-2">4-8 wks</div>
-                <div className="text-sm text-muted-foreground">Typical Timeline</div>
-              </div>
+              {INFRASTRUCTURE_SECTION.stats.map((stat, i) => (
+                <div key={i}>
+                  <div className="text-4xl lg:text-5xl font-display mb-2">{stat.value}</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -84,10 +73,10 @@ export function InfrastructureSection() {
             <div className="border border-foreground/10">
               {/* Header */}
               <div className="px-6 py-4 border-b border-foreground/10 flex items-center justify-between">
-                <span className="text-sm font-mono text-muted-foreground">Edge Network</span>
+                <span className="text-sm font-mono text-muted-foreground">{INFRASTRUCTURE_SECTION.edgeNetwork.title}</span>
                 <span className="flex items-center gap-2 text-xs font-mono text-green-600">
                   <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  All operational
+                  {INFRASTRUCTURE_SECTION.edgeNetwork.status}
                 </span>
               </div>
 

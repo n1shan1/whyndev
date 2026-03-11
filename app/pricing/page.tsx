@@ -7,112 +7,9 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { ShinyButton } from "@/components/landing/shiny-button";
 
-const primaryPlans = [
-  {
-    name: "Landing Page",
-    badge: "STARTUP",
-    priceOnce: "$500–$900",
-    priceMonth: "$49/mo",
-    term: "12 months, incl. hosting",
-    features: [
-      "Single high-converting landing page",
-      "Lead capture form",
-      "Fast load performance",
-      "Mobile optimized",
-      "Basic analytics"
-    ],
-    isFeatured: false
-  },
-  {
-    name: "Multi-Page",
-    badge: "MOST POPULAR",
-    priceOnce: "$1,200–$2,000",
-    priceMonth: "$99/mo",
-    term: "18 months, incl. maintenance",
-    features: [
-      "Up to 10 custom pages",
-      "CMS Setup (Blog/News)",
-      "Contact & Booking forms",
-      "SEO foundation",
-      "Performance optimized",
-      "GDPR compliant"
-    ],
-    isFeatured: true
-  },
-  {
-    name: "E-Commerce",
-    priceOnce: "$3,000–$5,000",
-    priceMonth: "$199/mo",
-    term: "24 months, incl. maintenance",
-    features: [
-      "Secure payment gateways",
-      "Product inventory system",
-      "Cart & Checkout flow",
-      "Order management",
-      "Advanced SEO setup"
-    ],
-    isFeatured: false
-  }
-];
-
-const enterprisePlans = [
-  {
-    name: "Corporate",
-    priceOnce: "Coming Soon",
-    priceMonth: "Coming Soon",
-    features: [
-      "Full marketing website",
-      "Custom third-party integrations",
-      "CRM setups & automations",
-      "Advanced analytics",
-      "Performance optimization",
-      "Priority support"
-    ],
-    isFeatured: false,
-    isComingSoon: true
-  },
-  {
-    name: "Enterprise",
-    badge: "BUILT FOR SCALE",
-    priceOnce: "Coming Soon",
-    priceMonth: "Coming Soon",
-    term: "Custom architecture & VIP support",
-    features: [
-      "Custom SaaS platform",
-      "Complex system architecture",
-      "Advanced data integrations",
-      "Dedicated infrastructure planning",
-      "Ongoing support & monitoring",
-      "Quarterly strategy reviews"
-    ],
-    isFeatured: true, // Featured Dark
-    isComingSoon: true
-  }
-];
-
-const faqs = [
-  {
-    q: "Can I switch plans later?",
-    a: "Yes, you can upgrade your plan at any time. We will credit the unused portion of your current plan toward your new subscription or project."
-  },
-  {
-    q: "What are your payment options?",
-    a: "We offer flexible payment options matching our pricing models: one-time upfront payments (typically 50% deposit, 50% upon completion), monthly subscription billing via Stripe, or custom enterprise billing terms."
-  },
-  {
-    q: "Do you offer refunds?",
-    a: "We offer a 14-day satisfaction guarantee on our subscription plans. For custom projects, milestones are approved before advancing to ensure complete satisfaction."
-  },
-  {
-    q: "What is included in maintenance?",
-    a: "Maintenance includes priority security updates, bug fixes, uptime monitoring, and small content changes (up to 5 hours per month depending on your tier)."
-  },
-  {
-    q: "How long does a typical project take?",
-    a: "Landing pages usually take 1-2 weeks. Starter packages run 2-4 weeks. Standard and Corporate builds take 4-8 weeks. Enterprise applications can take 8-16 weeks depending on scale and complexity."
-  }
-];
+import { PRIMARY_PLANS, ENTERPRISE_PLANS, FAQS, PRICING_PAGE } from "./constants";
 
 export default function PricingPage() {
   const [isMonthly, setIsMonthly] = useState(false);
@@ -124,10 +21,10 @@ export default function PricingPage() {
       {/* Header */}
       <section className="pt-40 lg:pt-48 pb-16 px-6 lg:px-12 max-w-[1400px] mx-auto text-center">
         <h1 className="text-5xl lg:text-7xl font-display tracking-tight text-foreground mb-6">
-          Pricing.
+          {PRICING_PAGE.header.title}
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          Transparent pricing. Built for startups that want websites that convert.
+          {PRICING_PAGE.header.subtitle}
         </p>
 
         {/* Toggle controls */}
@@ -137,22 +34,22 @@ export default function PricingPage() {
               onClick={() => setIsMonthly(false)}
               className={`px-8 py-3 rounded-full font-mono text-sm transition-all duration-300 ${!isMonthly ? "bg-background shadow-md text-foreground" : "text-muted-foreground hover:text-foreground"}`}
             >
-              One-Time
+              {PRICING_PAGE.header.toggles.once}
             </button>
             <button 
               onClick={() => setIsMonthly(true)}
               className={`px-8 py-3 rounded-full font-mono text-sm transition-all duration-300 ${isMonthly ? "bg-background shadow-md text-foreground" : "text-muted-foreground hover:text-foreground"}`}
             >
-              Monthly Subscription
+              {PRICING_PAGE.header.toggles.monthly}
             </button>
           </div>
           
           <div className="mt-6 h-6 overflow-hidden">
             <p className={`text-sm text-accent font-medium transition-all duration-300 ${isMonthly ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"}`}>
-              Project is paid upfront — you own it immediately.
+              {PRICING_PAGE.header.descriptions.once}
             </p>
             <p className={`text-sm text-accent font-medium transition-all duration-300 ${isMonthly ? "-translate-y-full opacity-100" : "translate-y-0 opacity-0"}`}>
-              Subscribe monthly — incl. maintenance & updates. You own it after the term.
+              {PRICING_PAGE.header.descriptions.monthly}
             </p>
           </div>
         </div>
@@ -161,7 +58,7 @@ export default function PricingPage() {
       {/* Primary Plans Grid */}
       <section className="px-6 lg:px-12 pb-20 max-w-[1400px] mx-auto">
         <div className="grid lg:grid-cols-3 gap-8 items-start">
-          {primaryPlans.map((plan, i) => (
+          {PRIMARY_PLANS.map((plan, i) => (
             <div 
               key={plan.name}
               className={`relative rounded-3xl p-8 lg:p-10 transition-transform duration-500 hover:-translate-y-2 ${
@@ -187,11 +84,9 @@ export default function PricingPage() {
                 )}
               </div>
               
-              <Link href="/contact" passHref legacyBehavior>
-                <Button className={`w-full h-12 rounded-xl mb-8 ${plan.isFeatured ? "bg-accent hover:bg-accent/90" : "bg-foreground hover:bg-foreground/90"}`}>
-                  Get Started
-                </Button>
-              </Link>
+              <ShinyButton href="/contact" className={`w-full h-12 rounded-xl mb-8 ${plan.isFeatured ? "bg-accent hover:bg-accent/90" : "bg-foreground hover:bg-foreground/90"}`}>
+                {PRICING_PAGE.buttons.getStarted}
+              </ShinyButton>
               
               <div className="space-y-4">
                 {plan.features.map(f => (
@@ -209,7 +104,7 @@ export default function PricingPage() {
       {/* Enterprise Plans Grid */}
       <section className="px-6 lg:px-12 pb-32 max-w-[1000px] mx-auto">
         <div className="grid md:grid-cols-2 gap-8">
-          {enterprisePlans.map((plan, i) => (
+          {ENTERPRISE_PLANS.map((plan, i) => (
             <div 
               key={plan.name}
               className={`relative rounded-3xl p-8 lg:p-10 transition-transform duration-500 hover:-translate-y-2 border ${
@@ -237,14 +132,12 @@ export default function PricingPage() {
               
               {plan.isComingSoon ? (
                 <Button disabled className={`w-full h-12 rounded-xl mb-8 ${plan.isFeatured ? "bg-background text-foreground hover:bg-background/90" : "bg-secondary text-foreground hover:bg-secondary/80"}`}>
-                  Coming Soon
+                  {PRICING_PAGE.buttons.comingSoon}
                 </Button>
               ) : (
-                <Link href="/contact" passHref legacyBehavior>
-                  <Button className={`w-full h-12 rounded-xl mb-8 ${plan.isFeatured ? "bg-background text-foreground hover:bg-background/90" : "bg-secondary text-foreground hover:bg-secondary/80"}`}>
-                    Contact Sales
-                  </Button>
-                </Link>
+                <ShinyButton href="/contact" className={`w-full h-12 rounded-xl mb-8 justify-center ${plan.isFeatured ? "bg-background text-foreground hover:bg-background/90" : "bg-secondary text-foreground hover:bg-secondary/80"}`}>
+                  {PRICING_PAGE.buttons.contactSales}
+                </ShinyButton>
               )}
               
               <div className="space-y-4">
@@ -260,15 +153,15 @@ export default function PricingPage() {
         </div>
         
         <div className="mt-12 text-center text-sm font-mono text-muted-foreground">
-          <p>Free initial consultation • Response guaranteed in 12h • Non-binding quote</p>
+          <p>{PRICING_PAGE.enterpriseFooter}</p>
         </div>
       </section>
 
       {/* Pricing FAQ Section */}
       <section className="max-w-3xl mx-auto px-6 lg:px-12 pb-32">
-        <h2 className="text-3xl font-display text-center mb-12">Frequently Asked Questions</h2>
+        <h2 className="text-3xl font-display text-center mb-12">{PRICING_PAGE.faqTitle}</h2>
         <div className="space-y-4">
-          {faqs.map((faq, i) => (
+          {FAQS.map((faq, i) => (
             <details key={i} className="group border border-border/50 rounded-2xl bg-secondary/10 overflow-hidden cursor-pointer open:bg-background open:shadow-md transition-all">
               <summary className="px-6 py-5 font-medium flex justify-between items-center outline-none">
                 {faq.q}
@@ -284,16 +177,15 @@ export default function PricingPage() {
 
       {/* Bottom CTA */}
       <section className="px-6 lg:px-12 pb-32 max-w-[1400px] mx-auto text-center">
-        <h2 className="text-4xl lg:text-6xl font-display tracking-tight mb-6">Need something custom?</h2>
+        <h2 className="text-4xl lg:text-6xl font-display tracking-tight mb-6">{PRICING_PAGE.bottomCta.title}</h2>
         <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-          Every business is unique. Let's discuss your specific needs and create a tailored solution.
+          {PRICING_PAGE.bottomCta.subtitle}
         </p>
-        <Link href="/contact" passHref legacyBehavior>
-          <Button size="lg" className="bg-foreground hover:bg-foreground/90 text-background px-10 h-14 text-base rounded-full group cursor-pointer">
-            Get Custom Quote
-            <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-          </Button>
-        </Link>
+        <div className="inline-block">
+          <ShinyButton href="/contact" className="h-14 px-10 text-base rounded-full">
+            {PRICING_PAGE.bottomCta.button}
+          </ShinyButton>
+        </div>
       </section>
 
       <FooterSection />

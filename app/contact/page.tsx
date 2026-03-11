@@ -4,31 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { Navigation } from "@/components/landing/navigation";
 import { FooterSection } from "@/components/landing/footer-section";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Mail, Phone, MapPin, Send } from "lucide-react";
-
-const contactInfo = [
-  {
-    icon: Mail,
-    title: "Email",
-    value: "hello@whyn.dev",
-    note: "We respond within 24 hours",
-    href: "mailto:hello@whyn.dev",
-  },
-  {
-    icon: Phone,
-    title: "Phone",
-    value: "+49 1575 4405511",
-    note: "Available Mon-Fri, 10am-6pm",
-    href: "tel:+491575440551",
-  },
-  {
-    icon: MapPin,
-    title: "Location",
-    value: "Bocholt, Germany",
-    note: "Remote meetings available",
-    href: null,
-  },
-];
+import { ArrowRight, Send } from "lucide-react";
+import { CONTACT_INFO, CONTACT_PAGE } from "./constants";
 
 export default function ContactPage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -67,7 +44,7 @@ export default function ContactPage() {
           >
             <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
               <span className="w-8 h-px bg-foreground/30" />
-              Contact Us
+              {CONTACT_PAGE.hero.tag}
             </span>
           </div>
 
@@ -76,7 +53,7 @@ export default function ContactPage() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            Get in Touch.
+            {CONTACT_PAGE.hero.title}
           </h1>
 
           <p
@@ -84,7 +61,7 @@ export default function ContactPage() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            Let&apos;s discuss your project and create something extraordinary together.
+            {CONTACT_PAGE.hero.subtitle}
           </p>
         </div>
       </section>
@@ -93,7 +70,7 @@ export default function ContactPage() {
       <section className="relative pb-16 lg:pb-24">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="grid md:grid-cols-3 gap-6">
-            {contactInfo.map((info, index) => {
+            {CONTACT_INFO.map((info, index) => {
               const content = (
                 <div
                   key={info.title}
@@ -129,22 +106,22 @@ export default function ContactPage() {
           <div className="mb-12">
             <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
               <span className="w-8 h-px bg-foreground/30" />
-              Send a Message
+              {CONTACT_PAGE.form.tag}
             </span>
             <h2 className="text-4xl lg:text-5xl font-display tracking-tight mb-4">
-              Tell us about
+              {CONTACT_PAGE.form.title[0]}
               <br />
-              your project.
+              {CONTACT_PAGE.form.title[1]}
             </h2>
             <p className="text-lg text-muted-foreground">
-              We&apos;ll respond within 12 hours during business hours.
+              {CONTACT_PAGE.form.subtitle}
             </p>
           </div>
 
           {isSubmitted && (
             <div className="mb-8 p-6 border border-green-500/30 bg-green-500/5 rounded-lg">
               <p className="text-green-600 dark:text-green-400 font-medium">
-                Thank you! We&apos;ll be in touch soon.
+                {CONTACT_PAGE.form.success}
               </p>
             </div>
           )}
@@ -154,7 +131,7 @@ export default function ContactPage() {
               {/* Name */}
               <div>
                 <label htmlFor="name" className="block text-sm font-mono text-muted-foreground mb-2">
-                  Name *
+                  {CONTACT_PAGE.form.fields.name.label}
                 </label>
                 <input
                   id="name"
@@ -163,14 +140,14 @@ export default function ContactPage() {
                   value={formState.name}
                   onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                   className="w-full px-4 py-3 bg-transparent border border-foreground/10 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground/40 transition-colors duration-300"
-                  placeholder="Your name"
+                  placeholder={CONTACT_PAGE.form.fields.name.placeholder}
                 />
               </div>
 
               {/* Email */}
               <div>
                 <label htmlFor="email" className="block text-sm font-mono text-muted-foreground mb-2">
-                  Email *
+                  {CONTACT_PAGE.form.fields.email.label}
                 </label>
                 <input
                   id="email"
@@ -179,14 +156,14 @@ export default function ContactPage() {
                   value={formState.email}
                   onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                   className="w-full px-4 py-3 bg-transparent border border-foreground/10 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground/40 transition-colors duration-300"
-                  placeholder="your@email.com"
+                  placeholder={CONTACT_PAGE.form.fields.email.placeholder}
                 />
               </div>
 
               {/* Phone */}
               <div>
                 <label htmlFor="phone" className="block text-sm font-mono text-muted-foreground mb-2">
-                  Phone
+                  {CONTACT_PAGE.form.fields.phone.label}
                 </label>
                 <input
                   id="phone"
@@ -194,14 +171,14 @@ export default function ContactPage() {
                   value={formState.phone}
                   onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
                   className="w-full px-4 py-3 bg-transparent border border-foreground/10 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground/40 transition-colors duration-300"
-                  placeholder="+49 123 456789"
+                  placeholder={CONTACT_PAGE.form.fields.phone.placeholder}
                 />
               </div>
 
               {/* Company */}
               <div>
                 <label htmlFor="company" className="block text-sm font-mono text-muted-foreground mb-2">
-                  Company
+                  {CONTACT_PAGE.form.fields.company.label}
                 </label>
                 <input
                   id="company"
@@ -209,7 +186,7 @@ export default function ContactPage() {
                   value={formState.company}
                   onChange={(e) => setFormState({ ...formState, company: e.target.value })}
                   className="w-full px-4 py-3 bg-transparent border border-foreground/10 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground/40 transition-colors duration-300"
-                  placeholder="Your company"
+                  placeholder={CONTACT_PAGE.form.fields.company.placeholder}
                 />
               </div>
             </div>
@@ -217,7 +194,7 @@ export default function ContactPage() {
             {/* Message */}
             <div>
               <label htmlFor="message" className="block text-sm font-mono text-muted-foreground mb-2">
-                Message *
+                {CONTACT_PAGE.form.fields.message.label}
               </label>
               <textarea
                 id="message"
@@ -226,7 +203,7 @@ export default function ContactPage() {
                 value={formState.message}
                 onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                 className="w-full px-4 py-3 bg-transparent border border-foreground/10 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground/40 transition-colors duration-300 resize-none"
-                placeholder="Tell us about your project, goals, and timeline..."
+                placeholder={CONTACT_PAGE.form.fields.message.placeholder}
               />
             </div>
 
@@ -236,7 +213,7 @@ export default function ContactPage() {
               size="lg"
               className="w-full bg-foreground hover:bg-foreground/90 text-background h-14 text-base rounded-full group"
             >
-              Send Message
+              {CONTACT_PAGE.form.submit}
               <Send className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
             </Button>
           </form>
@@ -247,13 +224,13 @@ export default function ContactPage() {
       <section className="relative py-24 lg:py-32 border-t border-foreground/10">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12 text-center">
           <span className="font-mono text-xs tracking-widest text-muted-foreground uppercase block mb-6">
-            Other ways to reach us
+            {CONTACT_PAGE.bottomCta.tag}
           </span>
           <h2 className="text-4xl lg:text-6xl font-display tracking-tight mb-6 max-w-3xl mx-auto">
-            Whether you have a quick question or want to discuss a project,
+            {CONTACT_PAGE.bottomCta.title}
           </h2>
           <p className="text-xl text-muted-foreground mb-12 max-w-xl mx-auto">
-            we&apos;re here to help.
+            {CONTACT_PAGE.bottomCta.subtitle}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="mailto:hello@whyn.dev">
@@ -261,7 +238,7 @@ export default function ContactPage() {
                 size="lg"
                 className="bg-foreground hover:bg-foreground/90 text-background px-10 h-14 text-base rounded-full group"
               >
-                Send Email
+                {CONTACT_PAGE.bottomCta.buttons.email}
                 <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
             </a>
@@ -271,7 +248,7 @@ export default function ContactPage() {
                 variant="outline"
                 className="h-14 px-10 text-base rounded-full border-foreground/20 hover:bg-foreground/5"
               >
-                Call Now
+                {CONTACT_PAGE.bottomCta.buttons.call}
               </Button>
             </a>
           </div>

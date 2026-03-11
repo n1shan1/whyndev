@@ -3,30 +3,10 @@
 import { useEffect, useState, useRef } from "react";
 import { Shield, Lock, Eye, FileCheck } from "lucide-react";
 
-const securityFeatures = [
-  {
-    icon: Shield,
-    title: "Data Protection",
-    description: "GDPR compliant with encrypted data storage and secure API connections.",
-  },
-  {
-    icon: Lock,
-    title: "SSL & Security",
-    description: "Free SSL certificates and comprehensive security measures on all projects.",
-  },
-  {
-    icon: Eye,
-    title: "Quality Assurance",
-    description: "Rigorous testing and code reviews ensure production-ready solutions.",
-  },
-  {
-    icon: FileCheck,
-    title: "Performance",
-    description: "PageSpeed 100, optimized load times, and conversion-focused design.",
-  },
-];
+import { SECURITY_SECTION } from "./constants";
 
-const certifications = ["GDPR", "SSL", "Best Practices", "Responsive", "SEO Ready"];
+const securityFeatures = SECURITY_SECTION.features;
+const certifications = SECURITY_SECTION.certifications;
 
 export function SecuritySection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -56,15 +36,15 @@ export function SecuritySection() {
           >
             <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
               <span className="w-8 h-px bg-foreground/30" />
-              Quality & Standards
+              {SECURITY_SECTION.eyebrow}
             </span>
             <h2 className="text-4xl lg:text-6xl font-display tracking-tight mb-8">
-              Excellence
+              {SECURITY_SECTION.headline[0]}
               <br />
-              by default.
+              {SECURITY_SECTION.headline[1]}
             </h2>
             <p className="text-xl text-muted-foreground leading-relaxed mb-12">
-              Every project is built to the highest standards with security, performance, and user experience as core pillars.
+              {SECURITY_SECTION.description}
             </p>
 
             {/* Certifications */}

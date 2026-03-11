@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap } from "lucide-react";
 import { AnimatedGradientBackground } from "./animated-gradient-background";
-
-const words = ["slap", "scale", "ship", "convert"];
+import { AnimatedWave } from "./animated-wave";
+import { HERO_SECTION } from "./constants";
+import { ShinyButton } from "./shiny-button";
 
 export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,7 +18,7 @@ export function HeroSection() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setWordIndex((prev) => (prev + 1) % words.length);
+      setWordIndex((prev) => (prev + 1) % HERO_SECTION.words.length);
     }, 2500);
     return () => clearInterval(interval);
   }, []);
@@ -25,6 +26,13 @@ export function HeroSection() {
   return (
     <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden">
       <AnimatedGradientBackground />
+      <div className="absolute inset-0 z-0 pointer-events-none select-none opacity-30">
+        <AnimatedWave />
+      </div>
+
+      {/* Background Animated Orbs */}
+      <div className="absolute top-[20%] left-[15%] w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] bg-primary/20 rounded-full blur-[120px] mix-blend-screen animate-pulse" style={{ animationDuration: '8s' }} />
+      <div className="absolute bottom-[10%] right-[10%] w-[35vw] h-[35vw] max-w-[500px] max-h-[500px] bg-accent/20 rounded-full blur-[100px] mix-blend-screen animate-pulse translate-y-1/4" style={{ animationDuration: '10s' }} />
 
       {/* Subtle grid lines */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
@@ -52,88 +60,72 @@ export function HeroSection() {
         ))}
       </div>
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 py-32 lg:py-40">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-12 py-32 lg:py-40 flex flex-col items-center text-center">
         {/* Eyebrow */}
         <div
           className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
         >
-          <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground">
-            <span className="w-8 h-px bg-foreground/30" />
-            Premium Digital Solutions
+          <span className="inline-flex items-center justify-center gap-3 text-sm font-mono text-muted-foreground bg-foreground/5 backdrop-blur-md px-5 py-2.5 rounded-full border border-border/50">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            {HERO_SECTION.eyebrow}
           </span>
         </div>
 
         {/* Main headline */}
-        <div className="mb-12">
+        <div className="mb-8 w-full">
           <h1
-            className={`text-[clamp(3rem,12vw,10rem)] font-display leading-[0.9] tracking-tight transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            className={`text-5xl md:text-7xl lg:text-[5.5rem] font-display leading-[1.1] tracking-tight transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
           >
-            <span className="block">Building web apps</span>
-            <span className="block">
-              that actually{" "}
-              <span className="relative inline-block">
+            <span className="block">{HERO_SECTION.headline[0]}</span>
+            <span className="block mt-2">
+              {HERO_SECTION.headline[1]}{" "}
+              <span className="relative inline-block text-primary">
                 <span
                   key={wordIndex}
                   className="inline-flex"
                 >
-                  {words[wordIndex].split("").map((char, i) => (
+                  {HERO_SECTION.words[wordIndex].split("").map((char, i) => (
                     <span
                       key={`${wordIndex}-${i}`}
                       className="inline-block animate-char-in"
                       style={{
-                        animationDelay: `${i * 50}ms`,
+                        animationDelay: `${i * 30}ms`,
                       }}
                     >
                       {char}
                     </span>
                   ))}
                 </span>
-                <span className="absolute -bottom-2 left-0 right-0 h-3 bg-foreground/10" />
+                <span className="absolute -bottom-1 left-0 right-0 h-1 bg-primary/20 rounded-full" />
               </span>
             </span>
           </h1>
         </div>
 
         {/* Description */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-end">
+        <div className="flex flex-col items-center w-full max-w-2xl">
           <p
-            className={`text-xl lg:text-2xl text-foreground/90 font-medium leading-relaxed max-w-2xl transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            className={`text-lg md:text-xl text-foreground/80 leading-relaxed transition-all duration-700 delay-200 mb-10 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
           >
-            No cap — most agencies sell bloated, slow templates. WHYN is a developer-led studio engineering fast, scalable, production-ready software for startups that want to move fast.
+            {HERO_SECTION.description}
           </p>
 
-          {/* CTAs */}
+          {/* CTA Wrapper */}
           <div
-            className={`flex flex-col sm:flex-row items-start gap-6 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            className={`transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
           >
-            <a href="/contact">
-              <Button
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 h-16 text-lg font-bold rounded-xl group relative overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_80px_-15px_rgba(212,175,55,0.6)]"
-              >
-                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[150%] skew-x-[-30deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-out" />
-                <span className="relative z-10 flex items-center gap-2">
-                  Let's Cook
-                  <Zap className="w-5 h-5 transition-transform group-hover:scale-110 group-hover:rotate-12 fill-current" />
-                </span>
-              </Button>
-            </a>
-            <a href="/portfolio">
-              <Button
-                size="lg"
-                variant="outline"
-                className="h-16 px-10 text-lg font-bold rounded-xl border-primary/30 hover:bg-primary/10 relative overflow-hidden transition-all duration-300 hover:border-primary/60 hover:shadow-[0_0_40px_-10px_rgba(212,175,55,0.2)] hover:scale-105"
-              >
-                See The Receipts
-              </Button>
-            </a>
+            <ShinyButton
+              href="/contact"
+              className="relative z-10 h-14 w-[240px] text-lg rounded-xl shadow-lg transition-shadow duration-300 hover:shadow-[0_0_40px_-10px_rgba(212,175,55,0.4)]"
+            >
+              {HERO_SECTION.ctas.primary}
+            </ShinyButton>
           </div>
         </div>
-
       </div>
 
       {/* Stats marquee - full width outside container */}

@@ -7,89 +7,9 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { ShinyButton } from "@/components/landing/shiny-button";
 
-export const projectsData = [
-  {
-    slug: "propvex-capital",
-    title: "Propvex Capital",
-    category: "Finance",
-    description: "Investment and capital management. Professional financial platform with an elegant design.",
-    client: "Propvex Capital",
-    date: "January 2026",
-    website: "propvex.capital",
-    technologies: ["Next.js", "Tailwind CSS", "Financial Design", "SEO"],
-    challenge: "Creating a trustworthy digital presence that appeals to high-net-worth individuals while securely handling sensitive financial data presentations.",
-    solution: "We engineered a robust platform using Next.js with a sharp focus on typography, refined color schemes, and seamless user journeys. Everything from the layout to the micro-interactions reflects the premium nature of the firm.",
-    results: "Increased inbound high-value leads by 45% in the first quarter, establishing Propvex as a modern authority in the finance space.",
-  },
-  {
-    slug: "steakclub-ny",
-    title: "Steakclub New York",
-    category: "Gastronomie",
-    description: "High-end Dining Branding. Sophisticated visual identity for exclusive dining.",
-    client: "Steakclub NY",
-    date: "December 2025",
-    website: "steakclub.nyc",
-    technologies: ["Next.js", "Framer Motion", "Tailwind CSS", "Sanity CMS"],
-    challenge: "Translating the physical luxury of a high-end NY steakhouse into a digital format that drives exclusive reservations.",
-    solution: "A highly visual, immersive website featuring smooth scroll animations, dark mode elegance, and a seamless reservation system integration.",
-    results: "Bookings increased by 30%, with mobile reservations seeing a massive 60% bump due to the optimized UI/UX.",
-  },
-  {
-    slug: "chauffeur-munchen",
-    title: "Chauffeur München",
-    category: "Transport",
-    description: "Luxury Transport UI/UX. Elegant booking ecosystem for premium transportation.",
-    client: "Chauffeur München",
-    date: "November 2025",
-    website: "chauffeur-muc.de",
-    technologies: ["React", "Next.js", "Stripe Integration", "Google Maps API"],
-    challenge: "Building a complex booking system with real-time availability and dynamic pricing while keeping the frontend interface extremely simple and luxurious.",
-    solution: "We integrated a customized Google Maps distance matrix and Stripe checkout into a beautifully minimal, native-feeling progressive web app.",
-    results: "Reduced booking drop-off rate by 22% and automated 90% of previously manual scheduling tasks.",
-  },
-  {
-    slug: "car-company",
-    title: "Car Company",
-    category: "Automotive",
-    description: "Digitalization of a used car dealership with modern web presence.",
-    client: "Car Company GMBH",
-    date: "October 2025",
-    website: "carcompany.de",
-    technologies: ["Next.js", "Supabase", "Tailwind CSS", "Vercel"],
-    challenge: "Modernizing a legacy business with large, frequently changing inventory. Creating a fast, searchable platform.",
-    solution: "A headless architectural approach using Supabase for inventory management, allowing lightning-fast filtering and instant vehicle detail pages.",
-    results: "Inventory views skyrocketed by 300%. The dealership now processes 40% of their initial sales inquiries entirely online.",
-  },
-  {
-    slug: "moussa-export",
-    title: "Moussa Export",
-    category: "Trade",
-    description: "Import & Export platform for international trade and logistics.",
-    client: "Moussa Export LTD",
-    date: "August 2025",
-    website: "moussa-export.com",
-    technologies: ["React", "Node.js", "MongoDB", "AWS"],
-    challenge: "Managing international logistic tracking data in a visually comprehensible format for global enterprise clients.",
-    solution: "Developed a custom dashboard application that unifies various tracking APIs into a single, clean interface with localized support.",
-    results: "Client support tickets dropped by 70% as clients could independently track and manage their trades in real-time.",
-  },
-  {
-    slug: "kose-autolackiererei",
-    title: "Köse Autolackiererei",
-    category: "Automotive",
-    description: "Professional auto paint services website with portfolio showcase.",
-    client: "Köse AG",
-    date: "July 2025",
-    website: "koese-lack.de",
-    technologies: ["Next.js", "Tailwind CSS", "Framer Motion"],
-    challenge: "Showcasing high-detail visual work (auto paint finishes) without compromising on website load speeds.",
-    solution: "Implemented an advanced image optimization pipeline with Next.js Image component and lazy-loading galleries.",
-    results: "Achieved a 100/100 Lighthouse performance score while delivering 4K resolution images of their work.",
-  },
-];
-
-const categories = ["All", "Finance", "Gastronomie", "Transport", "Automotive", "Trade"];
+import { PROJECTS_DATA as projectsData, CATEGORIES as categories, PORTFOLIO_PAGE } from "./constants";
 
 export default function PortfolioPage() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -105,10 +25,10 @@ export default function PortfolioPage() {
       {/* Hero */}
       <section className="pt-40 lg:pt-48 pb-16 px-6 lg:px-12 max-w-[1400px] mx-auto text-center">
         <h1 className="text-5xl lg:text-7xl font-display tracking-tight text-foreground mb-6">
-          Our Work.
+          {PORTFOLIO_PAGE.header.title}
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          A collection of premium digital experiences, web apps, and AI integrations.
+          {PORTFOLIO_PAGE.header.subtitle}
         </p>
       </section>
 
@@ -167,16 +87,15 @@ export default function PortfolioPage() {
       {/* CTA Bottom */}
       <section className="px-6 lg:px-12 pb-32 max-w-[1400px] mx-auto text-center">
          <div className="bg-secondary/40 border border-border/50 rounded-3xl p-12 lg:p-20 relative overflow-hidden backdrop-blur-sm">
-            <h2 className="text-3xl lg:text-5xl font-display mb-6">Like what you see?</h2>
+            <h2 className="text-3xl lg:text-5xl font-display mb-6">{PORTFOLIO_PAGE.bottomCta.title}</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-              Let's create something amazing together.
+              {PORTFOLIO_PAGE.bottomCta.subtitle}
             </p>
-            <Link href="/contact" passHref legacyBehavior>
-              <Button size="lg" className="bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full group cursor-pointer inline-flex items-center">
-                Start Your Project
-                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
+            <div className="inline-block">
+              <ShinyButton href="/contact" className="bg-foreground text-background hover:bg-foreground/90 h-14 px-8 text-base rounded-full shadow-lg border-foreground ring-foreground">
+                {PORTFOLIO_PAGE.bottomCta.button}
+              </ShinyButton>
+            </div>
          </div>
       </section>
 

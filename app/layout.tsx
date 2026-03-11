@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Poppins, Lora, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import { SmoothScroll } from "@/components/landing/smooth-scroll"
 import { AmbientCursorGlow } from "@/components/landing/ambient-cursor-glow"
 
 const poppins = Poppins({ 
@@ -28,6 +29,8 @@ export const metadata: Metadata = {
   generator: 'v0.app',
 }
 
+import { ContactDock } from "@/components/landing/contact-dock"
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -36,8 +39,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${lora.variable} ${poppins.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
-        <AmbientCursorGlow />
-        {children}
+        <SmoothScroll>
+          <AmbientCursorGlow />
+          <ContactDock />
+          {children}
+        </SmoothScroll>
         {/* <Analytics /> */}
       </body>
     </html>

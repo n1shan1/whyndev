@@ -2,38 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const steps = [
-  {
-    number: "I",
-    title: "Research & Strategy",
-    description: "We dive deep into your business goals, audience, and competition. Understanding your vision is the foundation.",
-    code: `// Project Discovery
-01. Initial consultation
-02. Business analysis
-03. Audience research
-04. Strategy workshop`,
-  },
-  {
-    number: "II",
-    title: "Design & Build",
-    description: "Custom design tailored to your brand, followed by clean, optimized code built for performance.",
-    code: `// Development Process
-01. Design mockups
-02. Client feedback
-03. Frontend development
-04. Backend integration`,
-  },
-  {
-    number: "III",
-    title: "Deploy & Optimize",
-    description: "We launch your project and continuously optimize for conversions, performance, and user experience.",
-    code: `// Launch & Optimization
-01. Final testing
-02. Deployment
-03. Analytics setup
-04. Performance tuning`,
-  },
-];
+import { HOW_IT_WORKS_SECTION } from "./constants";
+
+const steps = HOW_IT_WORKS_SECTION.steps;
 
 export function HowItWorksSection() {
   const [activeStep, setActiveStep] = useState(0);
@@ -83,16 +54,16 @@ export function HowItWorksSection() {
         <div className="mb-16 lg:mb-24">
           <span className="inline-flex items-center gap-3 text-sm font-mono text-background/50 mb-6">
             <span className="w-8 h-px bg-background/30" />
-            How We Work
+            {HOW_IT_WORKS_SECTION.eyebrow}
           </span>
           <h2
             className={`text-4xl lg:text-6xl font-display tracking-tight transition-all duration-700 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            From vision
+            {HOW_IT_WORKS_SECTION.headline[0]}
             <br />
-            <span className="text-background/50">to launch in 4-8 weeks.</span>
+            <span className="text-background/50">{HOW_IT_WORKS_SECTION.headline[1]}</span>
           </h2>
         </div>
 
@@ -146,7 +117,7 @@ export function HowItWorksSection() {
                   <div className="w-3 h-3 rounded-full bg-background/20" />
                   <div className="w-3 h-3 rounded-full bg-background/20" />
                 </div>
-                <span className="text-xs font-mono text-background/40">workflow.ts</span>
+                <span className="text-xs font-mono text-background/40">{HOW_IT_WORKS_SECTION.windowLabels.fileName}</span>
               </div>
 
               {/* Code content */}
@@ -182,7 +153,7 @@ export function HowItWorksSection() {
               {/* Status */}
               <div className="px-6 py-4 border-t border-background/10 flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-xs font-mono text-background/40">Ready</span>
+                <span className="text-xs font-mono text-background/40">{HOW_IT_WORKS_SECTION.windowLabels.status}</span>
               </div>
             </div>
           </div>
