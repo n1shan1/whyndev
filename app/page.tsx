@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <main className="relative min-h-screen overflow-x-hidden noise-overlay">
       <Navigation />
-      
+
       {/* Hook */}
       <HeroSection />
 
@@ -29,20 +29,19 @@ export default function Home() {
       <FeaturesSection />
 
       {/* Social Proof & Impact */}
-      <MetricsSection />
+      {/* <MetricsSection /> */}
       <TestimonialsSection />
 
       {/* The Engine & Trust */}
       <IntegrationsSection />
       <SecuritySection />
-      <DevelopersSection />
 
       {/* The Offer */}
       <PricingSection />
-      
+
       {/* SEO & Insights */}
+      <DevelopersSection />
       <BlogSection />
-      
       <CtaSection />
       <FooterSection />
     </main>

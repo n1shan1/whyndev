@@ -1,4 +1,5 @@
-import { Code2, Rocket, Shield, Lock, Eye, FileCheck, Globe, Search, ShoppingCart, LayoutTemplate } from "lucide-react";
+import { Code2, Rocket, Shield, Lock, Eye, FileCheck, Globe, Search, ShoppingCart, LayoutTemplate, Cpu, Database, Infinity, ShieldCheck, Unlock } from "lucide-react";
+import { PRIMARY_PLANS } from "@/app/pricing/constants";
 
 export const NAVIGATION = {
   logo: "whyn",
@@ -6,6 +7,7 @@ export const NAVIGATION = {
     { name: "Home", href: "/" },
     { name: "Services", href: "/services" },
     { name: "Portfolio", href: "/portfolio" },
+    { name: "Blog", href: "/blog" },
     { name: "Pricing", href: "/pricing" },
     { name: "About", href: "/about" },
   ],
@@ -97,107 +99,127 @@ export const FEATURES_SECTION = {
 
 export const METRICS_SECTION = {
   eyebrow: "Our Impact",
-  headline: ["Results you", "can trust."],
+  headline: ["Rigorous work.", "Tangible results."],
   verified: "Verified",
   metrics: [
-    { value: 92, suffix: "+", prefix: "", label: "Projects Completed" },
-    { value: 7.5, suffix: "M+", prefix: "", label: "Users Reached" },
-    { value: 100, suffix: "%", prefix: "", label: "Client Satisfaction" },
-    { value: 24, suffix: "h", prefix: "", label: "Avg Response Time" }
+    { value: 12, suffix: "+", prefix: "", label: "Projects Delivered" },
+    { value: 15, suffix: "+", prefix: "", label: "Technologies Used" },
+    { value: 100, suffix: "k+", prefix: "", label: "Lines of Code Written" },
+    { value: 12, suffix: "h", prefix: "<", label: "Avg Response Time" }
   ]
 };
 
 export const SECURITY_SECTION = {
-  eyebrow: "Quality & Standards",
-  headline: ["Excellence", "by default."],
-  description: "Every project is built to the highest standards with security, performance, and user experience as core pillars.",
-  certifications: ["GDPR", "SSL", "Best Practices", "Responsive", "SEO Ready"],
+  eyebrow: "Technical Sovereignty",
+  headline: ["Built for ownership.", "Designed for scale."],
+  description: "We don't just build websites; we build assets. You own 100% of your code and intellectual property. No proprietary black boxes—just clean, elite engineering built to sustain your growth.",
+  certifications: ["100% IP Ownership", "GDPR Compliant", "Clean Architecture", "Edge-Ready", "Zero Bench Fee"],
   features: [
-    { icon: Shield, title: "Data Protection", description: "GDPR compliant with encrypted data storage and secure API connections." },
-    { icon: Lock, title: "SSL & Security", description: "Free SSL certificates and comprehensive security measures on all projects." },
-    { icon: Eye, title: "Quality Assurance", description: "Rigorous testing and code reviews ensure production-ready solutions." },
-    { icon: FileCheck, title: "Performance", description: "PageSpeed 100, optimized load times, and conversion-focused design." }
+    { icon: Unlock, title: "Full Code Sovereignty", description: "Every line of code is yours from day one. Zero recurring 'agency license' fees or hidden dependencies." },
+    { icon: Infinity, title: "Foundational Scalability", description: "Architected on the Vercel Edge Network. Built to handle 10k users as easily as 1 with zero infrastructure lag." },
+    { icon: Cpu, title: "Elite Engineering", description: "Strict TypeScript and Server Component patterns. We build code that your future in-house team will actually love." },
+    { icon: ShieldCheck, title: "Zero-Trust Security", description: "Sanitized API layers and secure authentication patterns to protect your customer data and business integrity." }
   ]
 };
 
 export const TESTIMONIALS_SECTION = {
   eyebrow: "What people say",
-  keyResult: "Key Result",
-  marqueeLabel: "Trusted by forward-thinking teams",
+  keyResult: "Core Outcome",
+  marqueeLabel: "Trusted by founders and growing teams",
   testimonials: [
-    { quote: "The ROI-first approach changed how we view our digital spend. Traffic doubled in 3 months!", author: "Alex Rivera", role: "CEO", company: "TechFlow", metric: "+248% user growth", rating: 5 },
-    { quote: "Incredible speed performance. Our bounce rate dropped by 45% since the redesign.", author: "Sarah Chen", role: "Founder", company: "Bloom Media", metric: "45% bounce reduction", rating: 5 },
-    { quote: "A professional team that understands business goals, not just pretty designs.", author: "Marcus Thorne", role: "Partner", company: "Thorne & Co", metric: "100% satisfied", rating: 5 }
+    {
+      quote: "Working with WHYN was refreshingly straightforward. The process was transparent and the final site performs extremely well.",
+      author: "Arjun Patel",
+      role: "Indie Founder",
+      company: "SaaS Launch",
+      metric: "Lightning-fast performance",
+      rating: 5
+    },
+    {
+      quote: "What stood out most was the attention to performance and clean architecture. The site feels fast and thoughtfully built.",
+      author: "Daniel Rivera",
+      role: "Product Lead",
+      company: "DevTool Systems",
+      metric: "Scalable codebase",
+      rating: 5
+    },
+    {
+      quote: "The collaboration was smooth and the final website looks much more modern than what we had before.",
+      author: "Sophia Chen",
+      role: "Operation Lead",
+      company: "Modern Retail",
+      metric: "Modernized UX/UI",
+      rating: 5
+    }
   ],
   googleReviewWidget: {
-    status: "Excellent",
+    status: "Top Rated",
     rating: "5.0",
-    label: "Based on 30+ Google Reviews",
-    embedLink: "#" // Placeholder for actual Google Maps review link or widget script
+    label: "Highly Recommended by Founders",
+    embedLink: "#"
   },
-  companies: ["TechFlow", "Bloom Media", "Thorne & Co", "Propvex Capital", "Steakclub NY", "Car Company", "Moussa Export"]
+  companies: ["SaaS Startups", "Indie Founders", "Content Creators", "Developer Tools", "Local Businesses", "Growth Teams"]
 };
 
 export const PRICING_SECTION = {
   eyebrow: "Pricing Plans",
-  headline: ["Transparent pricing", "for growth"],
-  description: "Built for expanding businesses that want websites that convert visitors into customers. No hidden fees, no surprises.",
-  consultationNote: "Free initial consultation • Response guaranteed in 12h • Non-binding quote",
-  bottomNote: "All plans include unlimited updates, mobile optimization, and analytics.",
+
+  headline: ["Transparent pricing", "built for growth"],
+
+  description:
+    "Simple, transparent pricing designed for startups and growing businesses. Every project focuses on performance, clarity, and turning visitors into customers.",
+
+  consultationNote:
+    "Free consultation • 12h response time • No obligation quote",
+
+  bottomNote:
+    "All plans include responsive design, performance optimization, and analytics setup.",
+
   links: {
-    viewAll: "View all plans",
-    custom: "Custom solution? Book consultation"
+    viewAll: "View full pricing",
+    custom: "Need something custom? Book consultation"
   },
-  plans: [
-    {
-      name: "Landing Page",
-      description: "Single high-converting page",
-      price: { monthly: 69, annual: 69 },
-      oneTime: "$900 – $1,500",
-      features: ["Single landing page", "AI lead capture form", "Fast load performance", "Mobile optimized", "Basic analytics"],
-      cta: "Get Started",
-      popular: false,
-      tier: "starter" as const
+
+  plans: PRIMARY_PLANS.map((plan) => ({
+    name: plan.name,
+    description: plan.description,
+    price: {
+      monthly: parseInt(plan.priceMonth.replace(/[^0-9]/g, "")),
+      annual: parseInt(plan.priceMonth.replace(/[^0-9]/g, ""))
     },
-    {
-      name: "Starter",
-      description: "Perfect for growing businesses",
-      price: { monthly: 149, annual: 149 },
-      oneTime: "$2,000 – $3,500",
-      features: ["Up to 5 pages", "AI chat assistant", "Conversion optimized", "SEO foundation", "Responsive design", "GDPR compliant"],
-      cta: "Get Started",
-      popular: true,
-      tier: "popular" as const
-    },
-    {
-      name: "Standard",
-      description: "For established businesses",
-      price: { monthly: 249, annual: 249 },
-      oneTime: "$5,000 – $8,000",
-      features: ["Up to 10 pages", "Advanced AI lead capture", "Conversion analytics", "Automated email flows", "Performance optimization"],
-      cta: "Get Started",
-      popular: false,
-      tier: "premium" as const
-    }
-  ],
+    oneTime: plan.priceOnce,
+    features: plan.features,
+    cta: "Get Started",
+    popular: plan.isFeatured,
+    tier: plan.tier
+  })),
+
   tierStyles: {
     starter: {
-      card: "bg-gradient-to-b from-background to-blue-950/10 border border-blue-500/15 hover:border-blue-500/30 hover:shadow-[0_8px_40px_-12px_rgba(59,130,246,0.15)]",
+      card:
+        "bg-gradient-to-b from-background to-blue-950/10 border border-blue-500/15 hover:border-blue-500/30 hover:shadow-[0_8px_40px_-12px_rgba(59,130,246,0.15)]",
       badge: "",
-      button: "bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-600/20",
-      check: "text-blue-500",
+      button:
+        "bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-600/20",
+      check: "text-blue-500"
     },
+
     popular: {
-      card: "bg-gradient-to-b from-accent/5 via-background to-accent/10 border-2 border-accent/40 hover:border-accent/60 hover:shadow-[0_8px_40px_-12px_rgba(217,119,87,0.25)]",
+      card:
+        "bg-gradient-to-b from-accent/5 via-background to-accent/10 border-2 border-accent/40 hover:border-accent/60 hover:shadow-[0_8px_40px_-12px_rgba(217,119,87,0.25)]",
       badge: "bg-accent text-white",
-      button: "bg-accent text-white hover:bg-accent/90 shadow-lg shadow-accent/25",
-      check: "text-accent",
+      button:
+        "bg-accent text-white hover:bg-accent/90 shadow-lg shadow-accent/25",
+      check: "text-accent"
     },
+
     premium: {
-      card: "bg-gradient-to-b from-background via-amber-950/5 to-amber-950/15 border border-amber-500/20 hover:border-amber-500/40 hover:shadow-[0_8px_40px_-12px_rgba(245,158,11,0.15)]",
+      card:
+        "bg-gradient-to-b from-background via-amber-950/5 to-amber-950/15 border border-amber-500/20 hover:border-amber-500/40 hover:shadow-[0_8px_40px_-12px_rgba(245,158,11,0.15)]",
       badge: "",
-      button: "bg-gradient-to-r from-amber-600 to-amber-500 text-white hover:from-amber-700 hover:to-amber-600 shadow-lg shadow-amber-600/20",
-      check: "text-amber-500",
+      button:
+        "bg-gradient-to-r from-amber-600 to-amber-500 text-white hover:from-amber-700 hover:to-amber-600 shadow-lg shadow-amber-600/20",
+      check: "text-amber-500"
     }
   }
 };
@@ -211,14 +233,14 @@ export const DEVELOPERS_SECTION = {
       name: "Nishant Dev",
       role: "Lead Systems Engineer • India",
       experience: "2 Yrs Exp",
-      image: "https://api.dicebear.com/9.x/avataaars/svg?seed=Nishant&backgroundColor=000000,101010&skinColor=f8d25c&eyes=happy&mouth=smile",
+      image: "/nishant.jpeg",
       aboutLink: "/about"
     },
     {
       name: "Sweta Yadav",
       role: "UI/UX Specialist • India",
       experience: "1 Yr Exp",
-      image: "https://api.dicebear.com/9.x/avataaars/svg?seed=Sweta&backgroundColor=000000,101010&skinColor=ffdbb4&eyes=happy&mouth=smile",
+      image: "sweta.jpeg",
       aboutLink: "/about"
     }
   ],
@@ -313,21 +335,21 @@ export const CTA_SECTION = {
 export const FOOTER_SECTION = {
   logo: "whyn.",
   brandName: "whyn.dev",
-  description: "Premium web design and digital innovation for modern brands. We build what makes your business grow.",
-  copyright: "© 2026 Whyn. All rights reserved.",
+  description: "Strict technical accountability for growth-focused brands. We custom engineer screaming-fast, pixel-perfect digital assets designed to convert. You own 100% of your code.",
+  copyright: `© ${new Date().getFullYear()} Whyn. All rights reserved.`,
   statusLink: "Available for new projects",
   socialLinks: [
-    { name: "LinkedIn", href: "#" },
-    { name: "Twitter", href: "#" },
-    { name: "GitHub", href: "#" },
-    { name: "hello@whyn.dev", href: "mailto:hello@whyn.dev" }
+    { name: "LinkedIn", href: "https://linkedin.com/in/nishantdev" },
+    { name: "X", href: "https://x.com/n1sh_an1" },
+    { name: "GitHub", href: "https://github.com/n1shan1" },
+    { name: "connect.nishantdev@gmail.com", href: `mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "connect.nishantdev@gmail.com"}` }
   ],
   footerLinks: {
     Services: [
-      { name: "AI Conversion Websites", href: "/services#ai-conversion" },
-      { name: "Lead Capture Systems", href: "/services#ai-leads" },
-      { name: "Chat Sales Assistants", href: "/services#ai-chat" },
-      { name: "Web App Development", href: "/services#saas" }
+      { name: "Landing Pages", href: "/services#landing-page" },
+      { name: "Multi-Page Sites", href: "/services#multi-page" },
+      { name: "E-Commerce Stores", href: "/services#ecommerce" },
+      { name: "SEO Optimization", href: "/services#seo" }
     ],
     Company: [
       { name: "About Us", href: "/about" },
@@ -336,15 +358,16 @@ export const FOOTER_SECTION = {
       { name: "Blog", href: "/blog" }
     ],
     Resources: [
-      { name: "Documentation", href: "#" },
       { name: "Case Studies", href: "/portfolio" },
-      { name: "Contact", href: "/contact" },
-      { name: "Support", href: "/contact" }
+      { name: "Project Inquiry", href: "/contact" },
+      { name: "Contact Us", href: "/contact" },
+      { name: "Newsletter", href: "#" }
     ],
     Legal: [
-      { name: "Privacy", href: "#" },
-      { name: "Terms", href: "#" },
-      { name: "Cookies", href: "#" }
+      { name: "Privacy Policy", href: "/legal/privacy-policy" },
+      { name: "Terms of Service", href: "/legal/terms-of-service" },
+      { name: "Cookie Policy", href: "/legal/cookie-policy" },
+      { name: "Legal / Imprint", href: "/legal/imprint" }
     ]
   }
 };

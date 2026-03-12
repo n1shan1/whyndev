@@ -1,59 +1,159 @@
 export const PROJECTS_DATA = [
   {
-    slug: "quill-ai",
-    title: "Quill AI",
-    category: "SaaS",
+    slug: "thedevco",
+    title: "TheDevCo",
+    category: "Developer Platform",
     description:
-      "AI-powered writing platform designed to help creators and businesses generate high-quality content efficiently.",
+      "A modern developer platform concept showcasing tools, resources, and products designed specifically for engineering teams and developer-first companies.",
+
     client: "Personal Project",
     date: "2024",
-    website: null,
-    technologies: ["Next.js", "Tailwind CSS", "OpenAI API", "TypeScript"],
+    website: 'https://thedevco-pi.vercel.app/',
+
+    technologies: ["Next.js", "Tailwind CSS", "Framer Motion"],
+
     challenge:
-      "Designing a modern AI writing interface that feels fast and intuitive while handling dynamic AI responses and content generation workflows.",
+      "Developer-focused companies often struggle to communicate technical credibility through traditional marketing websites. Most platforms either feel too corporate or lack the performance and clarity developers expect. The goal was to design a platform experience that felt closer to a product interface than a marketing site.",
+
     solution:
-      "Built a responsive editor interface with real-time AI responses, optimized layout for long-form writing, and a minimal distraction-free UI.",
+      "TheDevCo was designed as a product-style website rather than a traditional landing page. The interface uses modular UI sections, animated transitions, and structured documentation-style layouts to present developer tools clearly. Emphasis was placed on performance, readable typography, and a minimal interface that mirrors the design language used by modern developer platforms.",
+
     results:
-      "Delivered a smooth AI writing experience with fast interactions and scalable frontend architecture.",
-    arcadeEmbed: "https://demo.arcade.software/5m717Q6Yx34O2IuI7u1y?embed&show_copy_link=true",
+      "The final product demonstrates how developer platforms can combine technical credibility with strong visual design. It serves as a blueprint for developer-first SaaS companies that want to communicate both engineering depth and product quality.",
+
+    image: "/projects/the-dev-co.jpg",
+  },
+
+  {
+    slug: "pingpanda",
+    title: "PingPanda",
+    category: "Developer SaaS",
+    description:
+      "A real-time SaaS monitoring platform that delivers instant notifications for product activity such as signups, payments, and milestones directly into Discord.",
+
+    client: "Personal Project",
+    date: "2024",
+    website: 'https://pingpanda-main.netlify.app/',
+
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST API",
+      "Discord Webhooks",
+      "Event Logging System",
+    ],
+
+    challenge:
+      "Many SaaS founders rely on dashboards to monitor business performance, but dashboards require constant checking. The challenge was to create a system that pushes critical product insights—like new users or revenue events—directly to the tools teams already use daily, such as Discord.",
+
+    solution:
+      "PingPanda introduces a developer-friendly logging API that allows SaaS applications to send structured events to a central service. These events are processed and instantly delivered to Discord channels as formatted notifications. The platform allows teams to monitor business activity in real time without opening analytics dashboards.",
+
+    results:
+      "The platform demonstrates how SaaS observability can shift from passive dashboards to proactive notifications. Founders and teams gain instant awareness of important events like new customers, revenue milestones, and product activity, helping them stay closer to their business performance.",
+
+    image: "/projects/pingpanda.jpg",
+  },
+
+  {
+    slug: "quill-ai",
+    title: "Quill",
+    category: "AI SaaS",
+    description:
+      "An AI-powered document intelligence platform that allows users to upload PDFs and interact with their content through natural language conversations.",
+
+    client: "Personal Project",
+    date: "2024",
+    website: 'https://quill-psi-jet.vercel.app/',
+
+    technologies: [
+      "Next.js 14",
+      "TypeScript",
+      "Tailwind CSS",
+      "tRPC",
+      "Prisma",
+      "PostgreSQL",
+      "LangChain",
+      "Google Generative AI",
+      "Pinecone",
+      "React-PDF",
+      "Stripe",
+      "Kinde Auth",
+    ],
+
+    challenge:
+      "Professionals working with large documents—contracts, reports, research papers—often spend hours manually searching for information. Traditional document viewers provide no intelligent understanding of the content, making knowledge extraction slow and inefficient.",
+
+    solution:
+      "Quill was built as a full-stack AI document platform powered by Retrieval-Augmented Generation (RAG). Uploaded documents are processed, converted into embeddings, and stored in Pinecone. Using LangChain and Google's Generative AI, users can ask questions about their documents and receive context-aware responses instantly.",
+
+    results:
+      "Quill demonstrates how AI can transform static documents into interactive knowledge systems. Users can explore complex documents conversationally, significantly reducing the time required to extract insights from large datasets.",
+
+    image: "/projects/quill.jpg",
   },
 
   {
     slug: "imagine-ai",
     title: "Imagine AI",
-    category: "SaaS",
+    category: "AI",
     description:
-      "AI image generation platform that allows users to create and explore AI-generated artwork through a simple interface.",
+      "A generative AI platform that enables users to create high-quality images from text prompts through a simple and visually engaging interface.",
+
     client: "Personal Project",
     date: "2024",
-    website: null,
-    technologies: ["Next.js", "React", "Tailwind CSS", "AI Image APIs"],
+    website: 'https://imagine-plum.vercel.app/',
+
+    technologies: [
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "Clerk Auth",
+      "Stripe",
+      "Shadcn UI",
+      "TypeScript",
+      "tRPC",
+      "Prisma",
+      "PostgreSQL",
+      "Google Generative AI",
+    ],
+
     challenge:
-      "Creating an interface that allows users to generate, preview, and manage AI images quickly without overwhelming the user with complexity.",
+      "AI image generation tools often overwhelm users with complex interfaces and fragmented workflows. The challenge was to create an interface that made AI image generation feel intuitive while still providing advanced capabilities.",
+
     solution:
-      "Developed a clean gallery-based UI with prompt controls, image previews, and responsive grid layouts optimized for fast browsing.",
+      "Imagine AI was designed with a product-focused interface that prioritizes simplicity and visual exploration. Users can generate images, preview outputs in a responsive gallery layout, and manage generations through a clean dashboard. Authentication and payment infrastructure allow the platform to scale as a production SaaS product.",
+
     results:
-      "Provided a seamless image generation workflow with visually engaging layouts and smooth UI interactions.",
-    arcadeEmbed: "https://demo.arcade.software/1eP9k3sZq1o4R3vX7q0m?embed&show_copy_link=true",
+      "The platform demonstrates how AI creativity tools can combine powerful generative models with simple, accessible interfaces that appeal to both technical and non-technical users.",
+
+    image: "/projects/imagine.jpg",
   },
 
   {
-    slug: "thedevco",
-    title: "TheDevCo",
-    category: "Developer Platform",
+    slug: "youcase",
+    title: "YouCase",
+    category: "E-Commerce",
     description:
-      "Modern developer-focused website and product interface showcasing tools and resources for software developers.",
+      "An e-commerce platform that allows users to design and purchase fully customized phone cases with real-time previews.",
+
     client: "Personal Project",
     date: "2024",
-    website: null,
-    technologies: ["Next.js", "Tailwind CSS", "Framer Motion"],
+    website: 'https://youcase.vercel.app/',
+
+    technologies: ["Next.js", "Tailwind CSS", "Stripe", "React"],
+
     challenge:
-      "Building a visually engaging developer-centric UI while maintaining performance and responsiveness across devices.",
+      "Customization-driven e-commerce experiences often suffer from slow interfaces and complex product configuration flows. The challenge was to design a smooth, intuitive customization process that works seamlessly across devices.",
+
     solution:
-      "Designed a clean product-style interface with animated components, structured content sections, and scalable layout patterns.",
+      "YouCase provides a real-time product customization interface where users can upload designs, preview their cases instantly, and complete purchases through an integrated Stripe checkout flow. The interface was optimized for performance to ensure smooth previews and quick loading times.",
+
     results:
-      "Created a modern developer platform UI that communicates technical credibility and product clarity.",
-    arcadeEmbed: "https://demo.arcade.software/k2m3L4p9N7b8V1c5X3z2?embed&show_copy_link=true",
+      "The platform showcases how modern web technologies can power interactive e-commerce experiences while maintaining fast performance and a clean shopping journey.",
+
+    image: "/projects/youcase.jpg",
   },
 
   {
@@ -61,37 +161,24 @@ export const PROJECTS_DATA = [
     title: "FlowScrape",
     category: "SaaS",
     description:
-      "Data scraping and automation platform designed to extract structured information from websites efficiently.",
+      "A web data extraction platform designed to help businesses collect structured information from websites and automate data workflows.",
+
     client: "Personal Project",
     date: "2025",
-    website: null,
-    technologies: ["Next.js", "React", "Tailwind CSS", "Node.js"],
-    challenge:
-      "Designing a dashboard that allows users to manage scraping workflows and visualize extracted data clearly.",
-    solution:
-      "Built a modern SaaS-style dashboard with workflow cards, job monitoring panels, and structured data previews.",
-    results:
-      "Delivered an intuitive UI that simplifies complex scraping workflows into manageable visual components.",
-    arcadeEmbed: "https://demo.arcade.software/p9l4K2j8H7g5F3d1S2a4?embed&show_copy_link=true",
-  },
+    website: 'https://flow-scrape-umber.vercel.app/',
 
-  {
-    slug: "youcase",
-    title: "YouCase",
-    category: "E-commerce",
-    description:
-      "Custom phone case e-commerce platform allowing users to personalize and order unique phone case designs.",
-    client: "Personal Project",
-    date: "2024",
-    website: null,
-    technologies: ["Next.js", "Tailwind CSS", "Stripe", "React"],
+    technologies: ["Next.js", "React", "Tailwind CSS", "Node.js"],
+
     challenge:
-      "Creating a smooth customization flow for users designing their own products while maintaining high performance.",
+      "Many businesses rely on web data for market research, pricing analysis, and lead generation. However, building custom scraping pipelines requires technical expertise and infrastructure.",
+
     solution:
-      "Developed a product customization interface with live previews, responsive product galleries, and streamlined checkout integration.",
+      "FlowScrape provides a dashboard where users can manage scraping workflows, monitor extraction jobs, and visualize collected data. The platform simplifies complex scraping operations into a clean SaaS-style interface designed for both developers and business users.",
+
     results:
-      "Enabled users to easily create and purchase personalized phone cases with a clean, modern shopping experience.",
-    arcadeEmbed: "https://demo.arcade.software/w1e3R5t7Y9u2I4o6P8a0?embed&show_copy_link=true",
+      "FlowScrape demonstrates how complex backend automation can be packaged into an accessible SaaS product, enabling businesses to extract and analyze web data without building custom infrastructure.",
+
+    image: "/projects/flow-scrape.jpg",
   },
 ];
 

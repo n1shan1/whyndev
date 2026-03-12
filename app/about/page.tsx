@@ -1,6 +1,7 @@
 import { Navigation } from "@/components/landing/navigation";
 import { FooterSection } from "@/components/landing/footer-section";
 import { ABOUT_PAGE } from "./constants";
+import Image from "next/image";
 
 export default function AboutPage() {
   return (
@@ -26,9 +27,13 @@ export default function AboutPage() {
             <div key={index} className="flex flex-col group">
               {/* Image Placeholder */}
               <div className="w-[240px] aspect-square bg-secondary/30 rounded-2xl mb-8 overflow-hidden relative">
-                 <div className="absolute inset-0 flex items-center justify-center text-6xl font-display text-foreground/10 group-hover:scale-110 transition-transform duration-700">
-                    {profile.avatarText}
-                 </div>
+                 <Image
+                   src={profile.image}
+                   alt={profile.name}
+                   fill
+                   sizes="240px"
+                   className="object-cover group-hover:scale-105 transition-transform duration-700"
+                 />
               </div>
 
               <div className="mb-6">

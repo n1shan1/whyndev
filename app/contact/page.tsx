@@ -6,6 +6,8 @@ import { FooterSection } from "@/components/landing/footer-section";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Send } from "lucide-react";
 import { CONTACT_INFO, CONTACT_PAGE } from "./constants";
+import { sendContactEmail } from "./actions";
+import { toast } from "sonner";
 
 export default function ContactPage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -16,6 +18,7 @@ export default function ContactPage() {
     company: "",
     message: "",
   });
+  const [isPending, setIsPending] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -23,11 +26,26 @@ export default function ContactPage() {
     setIsVisible(true);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setFormState({ name: "", email: "", phone: "", company: "", message: "" });
-    setTimeout(() => setIsSubmitted(false), 5000);
+    setIsPending(true);
+    
+    try {
+      const result = await sendContactEmail(formState);
+      
+      if (result.success) {
+        setIsSubmitted(true);
+        setFormState({ name: "", email: "", phone: "", company: "", message: "" });
+        toast.success("Message sent successfully!");
+        setTimeout(() => setIsSubmitted(false), 8000);
+      } else {
+        toast.error(result.error || "Something went wrong.");
+      }
+    } catch (error) {
+      toast.error("Failed to connect to the server.");
+    } finally {
+      setIsPending(false);
+    }
   };
 
   return (
@@ -211,10 +229,11 @@ export default function ContactPage() {
             <Button
               type="submit"
               size="lg"
-              className="w-full bg-foreground hover:bg-foreground/90 text-background h-14 text-base rounded-full group"
+              disabled={isPending}
+              className="w-full bg-foreground hover:bg-foreground/90 text-background h-14 text-base rounded-full group transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              {CONTACT_PAGE.form.submit}
-              <Send className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+              {isPending ? "Sending..." : CONTACT_PAGE.form.submit}
+              {!isPending && <Send className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />}
             </Button>
           </form>
         </div>

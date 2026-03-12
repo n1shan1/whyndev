@@ -32,12 +32,14 @@ export default function PricingPage() {
           <div className="flex bg-secondary/30 p-1.5 rounded-full border border-border/50">
             <button 
               onClick={() => setIsMonthly(false)}
+              aria-pressed={!isMonthly}
               className={`px-8 py-3 rounded-full font-mono text-sm transition-all duration-300 ${!isMonthly ? "bg-background shadow-md text-foreground" : "text-muted-foreground hover:text-foreground"}`}
             >
               {PRICING_PAGE.header.toggles.once}
             </button>
             <button 
               onClick={() => setIsMonthly(true)}
+              aria-pressed={isMonthly}
               className={`px-8 py-3 rounded-full font-mono text-sm transition-all duration-300 ${isMonthly ? "bg-background shadow-md text-foreground" : "text-muted-foreground hover:text-foreground"}`}
             >
               {PRICING_PAGE.header.toggles.monthly}

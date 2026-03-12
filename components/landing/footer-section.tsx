@@ -14,9 +14,9 @@ export function FooterSection() {
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col relative z-10">
         {/* Massive Logo Lockup */}
         <div className="w-full flex justify-center items-center overflow-hidden mb-16 border-b border-background/20 pb-16">
-          <h2 className="text-[clamp(6rem,20vw,24rem)] font-display text-background leading-none tracking-tighter select-none">
+          <p aria-hidden="true" className="text-[clamp(6rem,20vw,24rem)] font-display text-background leading-none tracking-tighter select-none">
             {FOOTER_SECTION.logo}
-          </h2>
+          </p>
         </div>
 
         {/* Main Footer */}
@@ -38,6 +38,8 @@ export function FooterSection() {
                   <a
                     key={link.name}
                     href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-sm text-background/60 hover:text-background transition-colors flex items-center gap-1 group"
                   >
                     {link.name}

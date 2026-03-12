@@ -4,53 +4,75 @@ export const CONTACT_INFO = [
   {
     icon: Mail,
     title: "Email",
-    value: "hello@whyn.dev",
-    note: "We respond within 24 hours",
-    href: "mailto:hello@whyn.dev",
+    value: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "connect.nishantdev@gmail.com",
+    note: "We usually respond within 12–24 hours",
+    href: `mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "connect.nishantdev@gmail.com"}`,
   },
   {
     icon: Phone,
-    title: "Phone",
-    value: "+49 1575 4405511",
-    note: "Available Mon-Fri, 10am-6pm",
-    href: "tel:+491575440551",
+    title: "Phone / WhatsApp",
+    value: "+91 9444816924",
+    note: "Available Mon–Fri, 10am–7pm IST",
+    href: "tel:+919444816924",
   },
   {
     icon: MapPin,
     title: "Location",
-    value: "Bocholt, Germany",
-    note: "Remote meetings available",
+    value: "Chennai, India",
+    note: "Remote meetings worldwide",
     href: null,
   },
 ];
 
 export const CONTACT_PAGE = {
   hero: {
-    tag: "Contact Us",
-    title: "Get in Touch.",
-    subtitle: "Let's discuss your project and create something extraordinary together."
+    tag: "Contact",
+    title: "Let's Build Something Great.",
+    subtitle:
+      "Have a project in mind? Tell us about your goals and we'll help you turn it into a high-performance digital product.",
   },
+
   form: {
-    tag: "Send a Message",
+    tag: "Start a Conversation",
     title: ["Tell us about", "your project."],
-    subtitle: "We'll respond within 12 hours during business hours.",
-    success: "Thank you! We'll be in touch soon.",
+    subtitle:
+      "Share a few details and we'll get back to you within one business day.",
+    success: "Thanks for reaching out. We'll contact you shortly.",
+
     fields: {
-      name: { label: "Name *", placeholder: "Your name" },
-      email: { label: "Email *", placeholder: "your@email.com" },
-      phone: { label: "Phone", placeholder: "+49 123 456789" },
-      company: { label: "Company", placeholder: "Your company" },
-      message: { label: "Message *", placeholder: "Tell us about your project, goals, and timeline..." }
+      name: {
+        label: "Name *",
+        placeholder: "Your full name",
+      },
+      email: {
+        label: "Email *",
+        placeholder: "you@example.com",
+      },
+      phone: {
+        label: "Phone",
+        placeholder: "+91 98765 43210",
+      },
+      company: {
+        label: "Company / Brand",
+        placeholder: "Your company or startup",
+      },
+      message: {
+        label: "Project Details *",
+        placeholder:
+          "Tell us about your project, timeline, and goals. The more details you share, the better we can help.",
+      },
     },
-    submit: "Send Message"
+
+    submit: "Send Message",
   },
+
   bottomCta: {
-    tag: "Other ways to reach us",
+    tag: "Prefer a direct conversation?",
     title: "Whether you have a quick question or want to discuss a project,",
-    subtitle: "we're here to help.",
+    subtitle: "we're always happy to help.",
     buttons: {
-      email: "Send Email",
-      call: "Call Now"
-    }
-  }
+      email: "Email Us",
+      call: "Call / WhatsApp",
+    },
+  },
 };

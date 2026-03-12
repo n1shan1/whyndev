@@ -24,12 +24,58 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'whyn.dev - Web Design & AI Integration',
-  description: 'We build what makes your business grow. Premium web design, AI-powered solutions, and custom software for modern brands.',
-  generator: 'v0.app',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
+
+  title: {
+    default: "WHYN — AI Powered Websites That Drive Business Growth",
+    template: "%s | WHYN",
+  },
+
+  description:
+    "WHYN builds high-performance websites and AI-powered digital platforms designed to increase leads, conversions, and business growth.",
+
+  keywords: [
+    "web development agency",
+    "AI websites",
+    "high converting websites",
+    "Next.js development",
+    "startup websites",
+    "business website development",
+  ],
+
+  authors: [{ name: "WHYN Studio" }],
+
+  openGraph: {
+    title: "WHYN — AI Powered Websites That Drive Business Growth",
+    description:
+      "High-performance websites engineered to convert visitors into customers.",
+    url: process.env.NEXT_PUBLIC_BASE_URL!,
+    siteName: "WHYN",
+    locale: "en_US",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "WHYN — AI Powered Websites",
+    description:
+      "We build high-converting websites and AI-powered platforms for modern businesses.",
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 import { ContactDock } from "@/components/landing/contact-dock"
+import { Toaster } from "sonner"
 
 export default function RootLayout({
   children,
@@ -43,6 +89,7 @@ export default function RootLayout({
           <AmbientCursorGlow />
           <ContactDock />
           {children}
+          <Toaster richColors position="top-right" />
         </SmoothScroll>
         {/* <Analytics /> */}
       </body>

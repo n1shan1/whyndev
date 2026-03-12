@@ -1,44 +1,65 @@
 export const ABOUT_PAGE = {
   hero: {
     eyebrow: "About Us",
-    title: "We are a professional web studio.",
-    subtitle: "Built by developers, driven by performance, clean design, and measurable business growth.",
-    description: "WHYN was founded to fix the broken agency model. No more bloated templates or opaque processes. We build premium, high-converting websites for growing, local, and established businesses."
+    title: "A developer-led studio building high-performance websites.",
+    subtitle:
+      "Built by engineers. Designed for growth. Focused on performance, clarity, and measurable business outcomes.",
+    description:
+      "WHYN was founded to challenge the traditional agency model. Instead of bloated templates and slow delivery cycles, we build modern, high-performance websites engineered to convert visitors into customers. Our approach combines clean architecture, thoughtful design, and scalable systems."
   },
+
   profiles: [
     {
       name: "Nishant Dev",
       role: "Founder & Lead Systems Engineer",
-      avatarText: "ND",
-      bio: "Nishant bridges complex systemic requirements with rapid startup velocity. He is passionate about crafting flawless architectural patterns that scale easily, guaranteeing clean databases and robust backends.",
-      experience: "2 Years",
-      expertise: ["System Design", "Next.js", "PostgreSQL", "React Server Components"],
+      image: "/nishant.jpeg",
+      bio:
+        "Nishant is a full-stack engineer focused on building scalable systems and modern web platforms. He specializes in Next.js architectures, performant frontend systems, and clean backend design. His work blends engineering precision with product thinking to deliver websites and platforms that perform reliably at scale.",
+      experience: "2+ Years",
+      expertise: [
+        "System Design",
+        "Next.js",
+        "React",
+        "PostgreSQL",
+        "Cloud Architecture"
+      ],
       location: "India",
       social: "whyn.dev"
     },
     {
       name: "Sweta Yadav",
-      role: "Lead UI/UX Specialist",
-      avatarText: "SY",
-      bio: "Sweta is the driving force behind our user experiences, bridging the gap between raw backend power and aesthetic perfection. She ensures every platform is delightfully accessible and visually stunning.",
-      experience: "1 Year",
-      expertise: ["UI/UX Design", "Figma", "User Research", "Prototyping"],
+      role: "Lead UI/UX Designer",
+      image: "/sweta.jpeg",
+      bio:
+        "Sweta leads the design direction at WHYN, ensuring every product feels intuitive, accessible, and visually refined. She specializes in crafting clean user interfaces and translating complex product requirements into seamless user experiences.",
+      experience: "1+ Year",
+      expertise: [
+        "UI/UX Design",
+        "Figma",
+        "Design Systems",
+        "User Research",
+        "Interaction Design"
+      ],
       location: "India",
       social: "sweta.design"
     }
   ],
+
   values: [
     {
-      title: "Raw Performance",
-      description: "We squeeze every ounce of performance out of the browser and the server."
+      title: "Performance First",
+      description:
+        "Speed and efficiency are non-negotiable. Every interface we build is optimized for performance across devices and networks."
     },
     {
-      title: "Clean Architecture",
-      description: "Code is read more than it is written. Maintainability is a first-class citizen."
+      title: "Clean Engineering",
+      description:
+        "Maintainable systems scale better. We focus on modular architectures and clear codebases that remain easy to evolve."
     },
     {
-      title: "Radical Transparency",
-      description: "No hidden fees, no opaque processes. We build alongside you."
+      title: "Transparency",
+      description:
+        "Clear communication and honest collaboration guide every project. Clients understand exactly how and why we build."
     }
   ]
 };

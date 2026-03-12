@@ -35,19 +35,18 @@ export function CtaSection() {
     <section ref={sectionRef} className="relative py-24 lg:py-32 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
         <div
-          className={`relative border border-foreground transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+          className={`relative border border-foreground transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
           onMouseMove={handleMouseMove}
         >
           {/* Spotlight effect */}
-          <div 
+          <div
             className="absolute inset-0 opacity-10 pointer-events-none transition-opacity duration-300"
             style={{
               background: `radial-gradient(600px circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(0,0,0,0.15), transparent 40%)`
             }}
           />
-          
+
           <div className="relative z-10 px-8 lg:px-16 py-16 lg:py-24 max-w-4xl mx-auto text-center">
             <h2 className="text-5xl lg:text-7xl font-display tracking-tight mb-8 leading-[0.95]">
               {CTA_SECTION.headline.main} <span className="text-primary italic">{CTA_SECTION.headline.highlight}</span>
@@ -68,7 +67,7 @@ export function CtaSection() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="h-16 px-10 text-lg rounded-full border-foreground/20 hover:bg-foreground/5 transition-all hover:border-foreground/40"
+                  className="h-16 px-10 text-lg rounded-full border-4 hover:bg-foreground/5 transition-all hover:border-foreground/40 hover:text-foreground cursor-pointer"
                 >
                   {CTA_SECTION.buttons.secondary}
                 </Button>

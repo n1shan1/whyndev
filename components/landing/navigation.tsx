@@ -30,6 +30,7 @@ export function Navigation() {
       }`}
     >
       <nav 
+        aria-label="Main"
         className={`relative z-50 mx-auto transition-all duration-500 ${
           isScrolled || isMobileMenuOpen
             ? "bg-background/80 backdrop-blur-2xl border border-foreground/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] max-w-[900px] mt-4 rounded-full"
@@ -89,6 +90,7 @@ export function Navigation() {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-2"
             aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? (
               <X className="w-6 h-6" />
@@ -102,6 +104,9 @@ export function Navigation() {
       
       {/* Mobile Menu - Full Screen Overlay */}
       <div
+        role="dialog"
+        aria-label="Main menu"
+        aria-hidden={!isMobileMenuOpen}
         className={`md:hidden fixed inset-0 bg-background z-40 transition-all duration-500 ${
           isMobileMenuOpen 
             ? "opacity-100 pointer-events-auto" 

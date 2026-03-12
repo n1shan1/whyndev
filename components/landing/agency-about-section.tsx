@@ -2,7 +2,7 @@ import { AGENCY_ABOUT_SECTION } from "./constants";
 
 export function AgencyAboutSection() {
   return (
-    <section className="py-24 px-6 lg:px-12 max-w-[1000px] mx-auto text-center lg:text-left">
+    <section className="py-24 px-6 lg:px-12 max-w-5xl mx-auto text-center lg:text-justify">
       <div className="flex flex-col items-center lg:items-start">
         <h2 className="text-4xl lg:text-5xl font-display tracking-tight mb-8">
           {AGENCY_ABOUT_SECTION.headline.main} <br />
@@ -16,7 +16,7 @@ export function AgencyAboutSection() {
             {AGENCY_ABOUT_SECTION.paragraphs[1]}
           </p>
         </div>
-        
+
         <div className="mt-12 grid sm:grid-cols-2 gap-6 w-full text-left">
           {AGENCY_ABOUT_SECTION.features.map((feature, i) => (
             <div key={i} className="bg-secondary/10 border border-border/50 p-6 lg:p-8 rounded-3xl hover:border-primary/30 transition-colors">
