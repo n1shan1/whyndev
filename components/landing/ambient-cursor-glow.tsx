@@ -1,19 +1,37 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export function AmbientCursorGlow() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const glowRef = useRef<HTMLDivElement>(null);
+  const mousePositionRef = useRef({ x: 0, y: 0 });
+  const frameRef = useRef<number | null>(null);
 
   useEffect(() => {
     const updateMousePosition = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      mousePositionRef.current = { x: e.clientX, y: e.clientY };
+
+      if (frameRef.current !== null) return;
+
+      frameRef.current = window.requestAnimationFrame(() => {
+        const glow = glowRef.current;
+
+        if (glow) {
+          const { x, y } = mousePositionRef.current;
+          glow.style.transform = `translate(${x - 400}px, ${y - 400}px)`;
+        }
+
+        frameRef.current = null;
+      });
     };
 
     window.addEventListener("mousemove", updateMousePosition);
 
     return () => {
       window.removeEventListener("mousemove", updateMousePosition);
+      if (frameRef.current !== null) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
     };
   }, []);
 
@@ -23,10 +41,9 @@ export function AmbientCursorGlow() {
       aria-hidden="true"
     >
       <div
-        className="absolute w-[800px] h-[800px] rounded-full blur-[100px] bg-accent/10 transition-transform duration-75 ease-out"
-        style={{
-          transform: `translate(${mousePosition.x - 400}px, ${mousePosition.y - 400}px)`,
-        }}
+        ref={glowRef}
+        className="absolute w-200 h-200 rounded-full blur-[100px] bg-accent/10 transition-transform duration-75 ease-out"
+        style={{ transform: "translate(-400px, -400px)" }}
       />
     </div>
   );

@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 export function AnimatedWave() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const frameRef = useRef(0);
+  const frameRef = useRef<number | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -14,14 +14,17 @@ export function AnimatedWave() {
     if (!ctx) return;
 
     const chars = "·∘○◯◌●◉";
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     let time = 0;
 
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
+      canvas.width = Math.floor(rect.width * dpr);
+      canvas.height = Math.floor(rect.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     resize();
@@ -35,8 +38,9 @@ export function AnimatedWave() {
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
-      const cols = Math.floor(rect.width / 20);
-      const rows = Math.floor(rect.height / 20);
+      const cellSize = 24;
+      const cols = Math.floor(rect.width / cellSize);
+      const rows = Math.floor(rect.height / cellSize);
 
       for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
@@ -60,14 +64,19 @@ export function AnimatedWave() {
       }
 
       time += 0.03;
-      frameRef.current = requestAnimationFrame(render);
+
+      if (!prefersReducedMotion) {
+        frameRef.current = window.requestAnimationFrame(render);
+      }
     };
 
     render();
 
     return () => {
       window.removeEventListener("resize", resize);
-      cancelAnimationFrame(frameRef.current);
+      if (frameRef.current !== null) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
     };
   }, []);
 

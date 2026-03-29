@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 export function AnimatedSphere() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const frameRef = useRef(0);
+  const frameRef = useRef<number | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -14,14 +14,17 @@ export function AnimatedSphere() {
     if (!ctx) return;
 
     const chars = "░▒▓█▀▄▌▐│─┤├┴┬╭╮╰╯";
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     let time = 0;
 
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
+      canvas.width = Math.floor(rect.width * dpr);
+      canvas.height = Math.floor(rect.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     resize();
@@ -39,12 +42,12 @@ export function AnimatedSphere() {
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
-      const step = 12;
       const points: { x: number; y: number; z: number; char: string }[] = [];
+      const angleStep = 0.2;
 
       // Generate sphere points
-      for (let phi = 0; phi < Math.PI * 2; phi += 0.15) {
-        for (let theta = 0; theta < Math.PI; theta += 0.15) {
+      for (let phi = 0; phi < Math.PI * 2; phi += angleStep) {
+        for (let theta = 0; theta < Math.PI; theta += angleStep) {
           const x = Math.sin(theta) * Math.cos(phi + time * 0.5);
           const y = Math.sin(theta) * Math.sin(phi + time * 0.5);
           const z = Math.cos(theta);
@@ -82,14 +85,19 @@ export function AnimatedSphere() {
       });
 
       time += 0.02;
-      frameRef.current = requestAnimationFrame(render);
+
+      if (!prefersReducedMotion) {
+        frameRef.current = window.requestAnimationFrame(render);
+      }
     };
 
     render();
 
     return () => {
       window.removeEventListener("resize", resize);
-      cancelAnimationFrame(frameRef.current);
+      if (frameRef.current !== null) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
     };
   }, []);
 

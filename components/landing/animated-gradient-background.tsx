@@ -1,22 +1,10 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export function AnimatedGradientBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    const updateDimensions = () => {
-      if (window.innerWidth && window.innerHeight) {
-        setDimensions({ width: window.innerWidth, height: window.innerHeight });
-      }
-    };
-    
-    updateDimensions();
-    window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
-  }, []);
+  const animationFrameIdRef = useRef<number | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -25,58 +13,95 @@ export function AnimatedGradientBackground() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    canvas.width = dimensions.width;
-    canvas.height = dimensions.height;
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
 
-    // Orb coordinates
     const orbs = [
-      { x: canvas.width * 0.2, y: canvas.height * 0.2, vx: 0.1, vy: 0.15, r: 350, baseRadius: 350, rDelta: 0, color: 'rgba(217, 119, 87, 0.1)' }, // Accent
-      { x: canvas.width * 0.8, y: canvas.height * 0.8, vx: -0.1, vy: -0.1, r: 400, baseRadius: 400, rDelta: 0, color: 'rgba(42, 42, 41, 0.5)' }, // Secondary grey
-      { x: canvas.width * 0.5, y: canvas.height * 0.5, vx: 0.15, vy: -0.05, r: 300, baseRadius: 300, rDelta: 0, color: 'rgba(217, 119, 87, 0.05)' } // Accent subtle
+      { x: 0, y: 0, vx: 0.1, vy: 0.15, r: 350, baseRadius: 350, color: 'rgba(217, 119, 87, 0.1)' },
+      { x: 0, y: 0, vx: -0.1, vy: -0.1, r: 400, baseRadius: 400, color: 'rgba(42, 42, 41, 0.5)' },
+      { x: 0, y: 0, vx: 0.15, vy: -0.05, r: 300, baseRadius: 300, color: 'rgba(217, 119, 87, 0.05)' },
     ];
 
-    let animationFrameId: number;
     let time = 0;
 
-    const render = () => {
+    const resizeCanvas = () => {
+      const rect = canvas.getBoundingClientRect();
+      const width = Math.max(1, Math.floor(rect.width));
+      const height = Math.max(1, Math.floor(rect.height));
+      const dpr = window.devicePixelRatio || 1;
+
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      orbs[0].x = width * 0.2;
+      orbs[0].y = height * 0.2;
+      orbs[1].x = width * 0.8;
+      orbs[1].y = height * 0.8;
+      orbs[2].x = width * 0.5;
+      orbs[2].y = height * 0.5;
+    };
+
+    const drawFrame = () => {
+      const rect = canvas.getBoundingClientRect();
+      const width = rect.width;
+      const height = rect.height;
+
+      ctx.clearRect(0, 0, width, height);
+
       time += 0.01;
-      
-      // Clear with background color instead of transparent to avoid trails in some browsers
-      ctx.fillStyle = '#141413'; // var(--background)
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      orbs.forEach(orb => {
-        // Move
-        orb.x += orb.vx;
-        orb.y += orb.vy;
+      if (!prefersReducedMotion) {
+        for (const orb of orbs) {
+          orb.x += orb.vx;
+          orb.y += orb.vy;
 
-        // Bounce
-        if (orb.x < 0 || orb.x > canvas.width) orb.vx *= -1;
-        if (orb.y < 0 || orb.y > canvas.height) orb.vy *= -1;
-        
-        // Pulse size
-        orb.r = orb.baseRadius + Math.sin(time) * 50;
+          if (orb.x < 0 || orb.x > width) orb.vx *= -1;
+          if (orb.y < 0 || orb.y > height) orb.vy *= -1;
 
-        // Draw radial gradient
+          orb.r = orb.baseRadius + Math.sin(time) * 50;
+        }
+      }
+
+      for (const orb of orbs) {
         const gradient = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.r);
         gradient.addColorStop(0, orb.color);
-        gradient.addColorStop(1, 'rgba(20, 20, 19, 0)'); // fade to bg
+        gradient.addColorStop(1, 'rgba(20, 20, 19, 0)');
 
         ctx.fillStyle = gradient;
         ctx.beginPath();
         ctx.arc(orb.x, orb.y, orb.r, 0, Math.PI * 2);
         ctx.fill();
-      });
-
-      animationFrameId = window.requestAnimationFrame(render);
+      }
     };
 
+    const render = () => {
+      drawFrame();
+
+      if (!prefersReducedMotion) {
+        animationFrameIdRef.current = window.requestAnimationFrame(render);
+      }
+    };
+
+    const handleResize = () => {
+      resizeCanvas();
+      drawFrame();
+    };
+
+    resizeCanvas();
+    window.addEventListener('resize', handleResize);
     render();
 
     return () => {
-      window.cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('resize', handleResize);
+      if (animationFrameIdRef.current !== null) {
+        window.cancelAnimationFrame(animationFrameIdRef.current);
+      }
     };
-  }, [dimensions]);
+  }, []);
 
   return (
     <canvas 
