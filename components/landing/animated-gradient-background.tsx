@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 export function AnimatedGradientBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameIdRef = useRef<number | null>(null);
+  const frameCountRef = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -16,6 +17,8 @@ export function AnimatedGradientBackground() {
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
     ).matches;
+
+    const FRAME_SKIP = 2; // Render every 2nd frame (30fps instead of 60fps)
 
     const orbs = [
       { x: 0, y: 0, vx: 0.1, vy: 0.15, r: 350, baseRadius: 350, color: 'rgba(217, 119, 87, 0.1)' },
@@ -52,12 +55,12 @@ export function AnimatedGradientBackground() {
 
       ctx.clearRect(0, 0, width, height);
 
-      time += 0.01;
+      time += 0.01 * FRAME_SKIP;
 
       if (!prefersReducedMotion) {
         for (const orb of orbs) {
-          orb.x += orb.vx;
-          orb.y += orb.vy;
+          orb.x += orb.vx * FRAME_SKIP;
+          orb.y += orb.vy * FRAME_SKIP;
 
           if (orb.x < 0 || orb.x > width) orb.vx *= -1;
           if (orb.y < 0 || orb.y > height) orb.vy *= -1;
@@ -79,7 +82,12 @@ export function AnimatedGradientBackground() {
     };
 
     const render = () => {
-      drawFrame();
+      frameCountRef.current++;
+      
+      // Skip frames to reduce evaluation time
+      if (frameCountRef.current % FRAME_SKIP === 0) {
+        drawFrame();
+      }
 
       if (!prefersReducedMotion) {
         animationFrameIdRef.current = window.requestAnimationFrame(render);

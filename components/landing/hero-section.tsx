@@ -1,16 +1,25 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Zap } from "lucide-react";
-import { AnimatedGradientBackground } from "./animated-gradient-background";
-import { AnimatedWave } from "./animated-wave";
+import { useDeferredAnimation } from "@/hooks/use-deferred-animation";
 import { HERO_SECTION } from "./constants";
 import { ShinyButton } from "./shiny-button";
+
+const AnimatedGradientBackground = dynamic(
+  () => import("./animated-gradient-background").then((module) => module.AnimatedGradientBackground),
+  { ssr: false, loading: () => null },
+);
+
+const AnimatedWave = dynamic(
+  () => import("./animated-wave").then((module) => module.AnimatedWave),
+  { ssr: false, loading: () => null },
+);
 
 export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
+  const shouldRenderAnimations = useDeferredAnimation(1500); // Show animations after 1.5s
 
   useEffect(() => {
     setIsVisible(true);
@@ -25,14 +34,16 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden">
-      <AnimatedGradientBackground />
-      <div className="absolute inset-0 z-0 pointer-events-none select-none opacity-30">
-        <AnimatedWave />
-      </div>
+      {shouldRenderAnimations && <AnimatedGradientBackground />}
+      {shouldRenderAnimations && (
+        <div className="absolute inset-0 z-0 pointer-events-none select-none opacity-30">
+          <AnimatedWave />
+        </div>
+      )}
 
       {/* Background Animated Orbs */}
-      <div className="absolute top-[20%] left-[15%] w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] bg-primary/20 rounded-full blur-[120px] mix-blend-screen animate-pulse" style={{ animationDuration: '8s' }} />
-      <div className="absolute bottom-[10%] right-[10%] w-[35vw] h-[35vw] max-w-[500px] max-h-[500px] bg-accent/20 rounded-full blur-[100px] mix-blend-screen animate-pulse translate-y-1/4" style={{ animationDuration: '10s' }} />
+      <div className="absolute top-[20%] left-[15%] w-[40vw] h-[40vw] max-w-150 max-h-150 bg-primary/20 rounded-full blur-[120px] mix-blend-screen animate-pulse" style={{ animationDuration: '8s' }} />
+      <div className="absolute bottom-[10%] right-[10%] w-[35vw] h-[35vw] max-w-125 max-h-125 bg-accent/20 rounded-full blur-[100px] mix-blend-screen animate-pulse translate-y-1/4" style={{ animationDuration: '10s' }} />
 
       {/* Subtle grid lines */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
@@ -120,7 +131,7 @@ export function HeroSection() {
           >
             <ShinyButton
               href="/contact"
-              className="relative z-10 h-14 w-[240px] text-lg rounded-xl shadow-lg transition-shadow duration-300 hover:shadow-[0_0_40px_-10px_rgba(212,175,55,0.4)]"
+              className="relative z-10 h-14 w-60 text-lg rounded-xl shadow-lg transition-shadow duration-300 hover:shadow-[0_0_40px_-10px_rgba(212,175,55,0.4)]"
             >
               {HERO_SECTION.ctas.primary}
             </ShinyButton>

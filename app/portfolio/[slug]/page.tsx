@@ -133,11 +133,14 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
             <div className="bg-foreground text-background rounded-2xl p-8 mt-12 shadow-xl">
               <h3 className="text-2xl font-display mb-4">{PORTFOLIO_PAGE.projects.interestedTitle}</h3>
               <p className="text-background/70 mb-8">{PORTFOLIO_PAGE.projects.interestedDesc}</p>
-              <Link href="/contact" passHref legacyBehavior>
-                <Button className="w-full bg-background hover:bg-background/90 text-foreground h-12">
+              <Button
+                asChild
+                className="w-full bg-background hover:bg-background/90 text-foreground h-12"
+              >
+                <Link href="/contact">
                   {PORTFOLIO_PAGE.projects.contactUs}
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
 

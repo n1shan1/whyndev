@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -12,36 +12,49 @@ export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    // Use IntersectionObserver instead of scroll events for better performance
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsScrolled(!entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    if (sentinelRef.current) {
+      observer.observe(sentinelRef.current);
+    }
+
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <header
-      className={`fixed z-50 transition-all duration-500 ${
-        isScrolled 
-          ? "top-4 left-4 right-4" 
-          : "top-0 left-0 right-0"
-      }`}
-    >
-      <nav 
-        aria-label="Main"
-        className={`relative z-50 mx-auto transition-all duration-500 ${
-          isScrolled || isMobileMenuOpen
-            ? "bg-background/80 backdrop-blur-2xl border border-foreground/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] max-w-[900px] mt-4 rounded-full"
-            : "bg-transparent max-w-[1400px]"
+    <>
+      {/* Sentinel element to detect scroll position */}
+      <div ref={sentinelRef} className="h-1" aria-hidden="true" />
+      
+      <header
+        className={`fixed z-50 transition-all duration-500 ${
+          isScrolled 
+            ? "top-4 left-4 right-4" 
+            : "top-0 left-0 right-0"
         }`}
       >
-        <div 
-          className={`flex items-center justify-between transition-all duration-500 px-6 lg:px-8 ${
-            isScrolled ? "h-16" : "h-24"
+        <nav 
+          aria-label="Main"
+          className={`relative z-50 mx-auto transition-all duration-500 ${
+            isScrolled || isMobileMenuOpen
+              ? "bg-background/80 backdrop-blur-2xl border border-foreground/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] max-w-[900px] mt-4 rounded-full"
+              : "bg-transparent max-w-[1400px]"
           }`}
         >
+          <div 
+            className={`flex items-center justify-between transition-all duration-500 px-6 lg:px-8 ${
+              isScrolled ? "h-16" : "h-24"
+            }`}
+          >
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <span className={`font-display tracking-tight transition-all duration-500 font-bold ${isScrolled ? "text-xl" : "text-2xl"}`}>
@@ -157,5 +170,6 @@ export function Navigation() {
         </div>
       </div>
     </header>
+    </>
   );
 }

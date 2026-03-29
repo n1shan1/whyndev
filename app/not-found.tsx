@@ -27,12 +27,16 @@ export default function NotFound() {
             The page you're looking for doesn't exist or has been moved. Let's get you back on track.
           </p>
           
-          <Link href="/" passHref legacyBehavior>
-            <Button size="lg" className="h-14 px-8 text-base rounded-full bg-foreground text-background hover:bg-foreground/90 transition-transform hover:scale-105 active:scale-95">
+          <Button
+            asChild
+            size="lg"
+            className="h-14 px-8 text-base rounded-full bg-foreground text-background hover:bg-foreground/90 transition-transform hover:scale-105 active:scale-95"
+          >
+            <Link href="/">
               <ArrowLeft className="mr-2 h-5 w-5" />
               Return Home
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </div>
 

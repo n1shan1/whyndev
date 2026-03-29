@@ -4,7 +4,6 @@ import { Poppins, Lora, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import { SmoothScroll } from "@/components/landing/smooth-scroll"
-import { AmbientCursorGlow } from "@/components/landing/ambient-cursor-glow"
 
 const poppins = Poppins({ 
   subsets: ["latin"],
@@ -74,8 +73,8 @@ export const metadata: Metadata = {
   },
 }
 
-import { ContactDock } from "@/components/landing/contact-dock"
 import { Toaster } from "sonner"
+import { LayoutChrome } from "@/components/layout-chrome"
 
 export default function RootLayout({
   children,
@@ -86,8 +85,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`${lora.variable} ${poppins.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <SmoothScroll>
-          <AmbientCursorGlow />
-          <ContactDock />
+          <LayoutChrome />
           {children}
           <Toaster richColors position="top-right" />
         </SmoothScroll>

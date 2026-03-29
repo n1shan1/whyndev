@@ -109,12 +109,16 @@ export function FeaturesSection() {
                 {FEATURES_SECTION.secondaryFeatures[1].description}
               </p>
               
-              <Link href="/contact" passHref legacyBehavior>
-                <Button variant="outline" className="w-full bg-background/50 hover:bg-background text-foreground rounded-xl h-12 border-border/50 group-hover:border-primary/30 transition-colors">
+              <Button
+                asChild
+                variant="outline"
+                className="w-full bg-background/50 hover:bg-background text-foreground rounded-xl h-12 border-border/50 group-hover:border-primary/30 transition-colors"
+              >
+                <Link href="/contact">
                   {FEATURES_SECTION.secondaryFeatures[1].cta}
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
+                </Link>
+              </Button>
              </div>
           </div>
 
