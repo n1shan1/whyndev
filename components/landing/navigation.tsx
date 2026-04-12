@@ -32,6 +32,11 @@ export function Navigation() {
     return () => observer.disconnect();
   }, []);
 
+  // Close mobile menu when pathname changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
   return (
     <>
       {/* Sentinel element to detect scroll position */}
