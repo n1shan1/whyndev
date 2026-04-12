@@ -8,16 +8,20 @@ export function AnimatedGradientBackground() {
   const frameCountRef = useRef(0);
   const gradientsRef = useRef<Map<string, CanvasGradient> | null>(null);
 
+  // Disable on mobile and reduced motion
+  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+  if (prefersReducedMotion || isMobile) {
+    return null;
+  }
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    ).matches;
 
     const FRAME_SKIP = 3; // Render every 3rd frame (20fps instead of 60fps)
 

@@ -7,6 +7,14 @@ export function AnimatedWave() {
   const frameRef = useRef<number | null>(null);
   const frameCountRef = useRef(0);
 
+  // Disable on mobile and reduced motion
+  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+  if (prefersReducedMotion || isMobile) {
+    return null;
+  }
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -15,9 +23,6 @@ export function AnimatedWave() {
     if (!ctx) return;
 
     const chars = "·∘○◯◌●◉";
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
     let time = 0;
     const FRAME_SKIP = 3; // Render every 3rd frame (20fps instead of 60fps)
 
@@ -52,7 +57,6 @@ export function AnimatedWave() {
         const timeMultiplier2 = time * 2;
         const timeMultiplier1_5 = time * 1.5;
         const timeMultiplier0_8 = time * 0.8;
-        const invCharsLen = 1 / (chars.length - 1);
 
         for (let y = 0; y < rows; y++) {
           for (let x = 0; x < cols; x++) {

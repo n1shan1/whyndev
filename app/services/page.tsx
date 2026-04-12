@@ -8,11 +8,13 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { ShinyButton } from "@/components/landing/shiny-button";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 import { SERVICES, SERVICES_PAGE } from "./constants";
 
 export default function ServicesPage() {
   const [isVisible, setIsVisible] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     setIsVisible(true);
@@ -66,7 +68,7 @@ export default function ServicesPage() {
                   </div>
                   
                   <div className="shrink-0 w-full md:w-auto">
-                    <div className="inline-flex flex-col w-full md:items-end bg-background/60 backdrop-blur-xl border border-border/50 rounded-2xl p-6 shadow-sm">
+                    <div className={`inline-flex flex-col w-full md:items-end bg-background/60 ${isMobile ? 'backdrop-blur-md' : 'backdrop-blur-xl'} border border-border/50 rounded-2xl p-6 shadow-sm`}>
                       <span className="text-xs text-muted-foreground uppercase tracking-widest font-mono mb-2">{SERVICES_PAGE.labels.startingAt}</span>
                       <span className="text-4xl font-display text-foreground">{service.price}</span>
                     </div>
@@ -132,7 +134,7 @@ export default function ServicesPage() {
 
       {/* CTA Bottom */}
       <section className="px-6 lg:px-12 pb-32 max-w-[1400px] mx-auto text-center">
-         <div className="bg-secondary/40 border border-border/50 rounded-3xl p-12 lg:p-20 relative overflow-hidden backdrop-blur-sm">
+         <div className={`bg-secondary/40 border border-border/50 rounded-3xl p-12 lg:p-20 relative overflow-hidden ${isMobile ? 'backdrop-blur-sm' : 'backdrop-blur-sm'} shadow-sm`}>
             <h2 className="text-3xl lg:text-5xl font-display mb-6">{SERVICES_PAGE.bottomCta.title}</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               {SERVICES_PAGE.bottomCta.subtitle}

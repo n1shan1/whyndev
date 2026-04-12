@@ -6,12 +6,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { DEVELOPERS_SECTION } from "./constants";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const team = DEVELOPERS_SECTION.team;
 
 export function DevelopersSection() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -90,7 +92,7 @@ export function DevelopersSection() {
               }`}
           >
             <div className="bg-card w-full h-[600px] border border-border/50 rounded-3xl p-2 lg:p-4 shadow-sm relative overflow-hidden group hover:border-primary/30 transition-colors">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 group-hover:bg-primary/10 transition-colors duration-700 pointer-events-none" />
+              <div className={`absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full ${isMobile ? '' : 'blur-[80px]'} -translate-y-1/2 translate-x-1/3 group-hover:bg-primary/10 transition-colors duration-700 pointer-events-none`} />
               <iframe
                 src="https://cal.com/niishantdev/30min"
                 className="w-full h-full border-0 rounded-2xl bg-transparent"

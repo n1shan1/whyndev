@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import { HOW_IT_WORKS_SECTION } from "./constants";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const steps = HOW_IT_WORKS_SECTION.steps;
 
@@ -10,6 +11,7 @@ export function HowItWorksSection() {
   const [activeStep, setActiveStep] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -181,7 +183,7 @@ export function HowItWorksSection() {
         
         .code-char-reveal {
           opacity: 0;
-          filter: blur(8px);
+          filter: ${isMobile ? 'blur(4px)' : 'blur(8px)'};
           animation: charReveal 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
         

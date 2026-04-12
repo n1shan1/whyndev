@@ -38,6 +38,10 @@ export function HeroSection() {
 
   const shouldShowHeavyAnimations = shouldRenderAnimations && !isMobile && !prefersReducedMotion;
 
+  // Mobile-optimized background orbs - no blur on mobile
+  const orbClasses = (position: string, size: string, color: string, animation?: string) =>
+    `absolute ${position} ${size} ${color} rounded-full ${isMobile ? '' : `blur-[${animation === 'pulse' ? '120' : '100'}px] mix-blend-screen animate-${animation || 'pulse'}`}`;
+
   return (
     <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden">
       {shouldShowHeavyAnimations && <AnimatedGradientBackground />}
@@ -48,8 +52,8 @@ export function HeroSection() {
       )}
 
       {/* Background Animated Orbs - Static on mobile */}
-      <div className={`absolute top-[20%] left-[15%] w-[40vw] h-[40vw] max-w-150 max-h-150 bg-primary/20 rounded-full ${isMobile ? '' : 'blur-[120px] mix-blend-screen animate-pulse'}`} style={isMobile ? {} : { animationDuration: '8s' }} />
-      <div className={`absolute bottom-[10%] right-[10%] w-[35vw] h-[35vw] max-w-125 max-h-125 bg-accent/20 rounded-full translate-y-1/4 ${isMobile ? '' : 'blur-[100px] mix-blend-screen animate-pulse'}`} style={isMobile ? {} : { animationDuration: '10s' }} />
+      <div className={orbClasses("top-[20%] left-[15%]", "w-[40vw] h-[40vw] max-w-150 max-h-150", "bg-primary/20", "pulse")} style={isMobile ? {} : { animationDuration: '8s' }} />
+      <div className={orbClasses("bottom-[10%] right-[10%]", "w-[35vw] h-[35vw] max-w-125 max-h-125", "bg-accent/20 translate-y-1/4", "pulse")} style={isMobile ? {} : { animationDuration: '10s' }} />
 
       {/* Subtle grid lines - Static */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
@@ -83,7 +87,7 @@ export function HeroSection() {
           className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
         >
-          <span className="inline-flex items-center justify-center gap-3 text-sm font-mono text-muted-foreground bg-foreground/5 backdrop-blur-md px-5 py-2.5 rounded-full border border-border/50">
+          <span className={`inline-flex items-center justify-center gap-3 text-sm font-mono text-muted-foreground bg-foreground/5 ${isMobile ? 'backdrop-blur-sm' : 'backdrop-blur-md'} px-5 py-2.5 rounded-full border border-border/50`}>
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             {HERO_SECTION.eyebrow}
           </span>

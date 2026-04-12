@@ -7,12 +7,14 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { NAVIGATION } from "./constants";
 import { ShinyButton } from "@/components/landing/shiny-button";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // Use IntersectionObserver instead of scroll events for better performance
@@ -46,7 +48,7 @@ export function Navigation() {
           aria-label="Main"
           className={`relative z-50 mx-auto transition-all duration-500 ${
             isScrolled || isMobileMenuOpen
-              ? "bg-background/80 backdrop-blur-2xl border border-foreground/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] max-w-[900px] mt-4 rounded-full"
+              ? `bg-background/80 ${isMobile ? 'backdrop-blur-sm' : 'backdrop-blur-2xl'} border border-foreground/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] max-w-[900px] mt-4 rounded-full`
               : "bg-transparent max-w-[1400px]"
           }`}
         >
