@@ -3,6 +3,13 @@
 import { motion } from "framer-motion";
 
 export default function Template({ children }: { children: React.ReactNode }) {
+  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+  if (prefersReducedMotion || isMobile) {
+    return <div className="w-full flex-1">{children}</div>;
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0.2, filter: "blur(24px)", y: 16 }}

@@ -6,6 +6,7 @@ export function AnimatedGradientBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameIdRef = useRef<number | null>(null);
   const frameCountRef = useRef(0);
+  const gradientsRef = useRef<Map<string, CanvasGradient> | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -18,12 +19,12 @@ export function AnimatedGradientBackground() {
       '(prefers-reduced-motion: reduce)',
     ).matches;
 
-    const FRAME_SKIP = 2; // Render every 2nd frame (30fps instead of 60fps)
+    const FRAME_SKIP = 3; // Render every 3rd frame (20fps instead of 60fps)
 
     const orbs = [
-      { x: 0, y: 0, vx: 0.1, vy: 0.15, r: 350, baseRadius: 350, color: 'rgba(217, 119, 87, 0.1)' },
-      { x: 0, y: 0, vx: -0.1, vy: -0.1, r: 400, baseRadius: 400, color: 'rgba(42, 42, 41, 0.5)' },
-      { x: 0, y: 0, vx: 0.15, vy: -0.05, r: 300, baseRadius: 300, color: 'rgba(217, 119, 87, 0.05)' },
+      { x: 0, y: 0, vx: 0.1, vy: 0.15, r: 300, baseRadius: 300, color: 'rgba(217, 119, 87, 0.08)' },
+      { x: 0, y: 0, vx: -0.1, vy: -0.1, r: 350, baseRadius: 350, color: 'rgba(42, 42, 41, 0.4)' },
+      { x: 0, y: 0, vx: 0.15, vy: -0.05, r: 250, baseRadius: 250, color: 'rgba(217, 119, 87, 0.03)' },
     ];
 
     let time = 0;
@@ -56,23 +57,33 @@ export function AnimatedGradientBackground() {
       ctx.clearRect(0, 0, width, height);
 
       time += 0.01 * FRAME_SKIP;
+      const sinTime = Math.sin(time) * 40;
 
       if (!prefersReducedMotion) {
-        for (const orb of orbs) {
+        for (let i = 0; i < orbs.length; i++) {
+          const orb = orbs[i];
           orb.x += orb.vx * FRAME_SKIP;
           orb.y += orb.vy * FRAME_SKIP;
 
           if (orb.x < 0 || orb.x > width) orb.vx *= -1;
           if (orb.y < 0 || orb.y > height) orb.vy *= -1;
 
-          orb.r = orb.baseRadius + Math.sin(time) * 50;
+          orb.r = orb.baseRadius + sinTime;
         }
       }
 
-      for (const orb of orbs) {
-        const gradient = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.r);
-        gradient.addColorStop(0, orb.color);
-        gradient.addColorStop(1, 'rgba(20, 20, 19, 0)');
+      for (let i = 0; i < orbs.length; i++) {
+        const orb = orbs[i];
+        const key = `${Math.round(orb.x)},${Math.round(orb.y)},${Math.round(orb.r)}`;
+        let gradient = gradientsRef.current?.get(key);
+        
+        if (!gradient) {
+          gradient = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.r);
+          gradient.addColorStop(0, orb.color);
+          gradient.addColorStop(1, 'rgba(20, 20, 19, 0)');
+          if (!gradientsRef.current) gradientsRef.current = new Map();
+          gradientsRef.current.set(key, gradient);
+        }
 
         ctx.fillStyle = gradient;
         ctx.beginPath();
@@ -87,6 +98,10 @@ export function AnimatedGradientBackground() {
       // Skip frames to reduce evaluation time
       if (frameCountRef.current % FRAME_SKIP === 0) {
         drawFrame();
+        // Clear gradient cache periodically to prevent memory bloat
+        if (frameCountRef.current % (FRAME_SKIP * 100) === 0) {
+          gradientsRef.current?.clear();
+        }
       }
 
       if (!prefersReducedMotion) {

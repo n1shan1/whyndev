@@ -6,10 +6,24 @@ export function AmbientCursorGlow() {
   const glowRef = useRef<HTMLDivElement>(null);
   const mousePositionRef = useRef({ x: 0, y: 0 });
   const frameRef = useRef<number | null>(null);
+  const lastUpdateRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.innerWidth < 768;
+
+    if (prefersReducedMotion || isMobile) return;
+
     const updateMousePosition = (e: MouseEvent) => {
-      mousePositionRef.current = { x: e.clientX, y: e.clientY };
+      const { clientX, clientY } = e;
+      
+      // Only schedule RAF if position has moved significantly (throttle)
+      const dx = Math.abs(clientX - lastUpdateRef.current.x);
+      const dy = Math.abs(clientY - lastUpdateRef.current.y);
+      if (dx < 8 && dy < 8) return;
+      
+      lastUpdateRef.current = { x: clientX, y: clientY };
+      mousePositionRef.current = { x: clientX, y: clientY };
 
       if (frameRef.current !== null) return;
 
@@ -25,7 +39,7 @@ export function AmbientCursorGlow() {
       });
     };
 
-    window.addEventListener("mousemove", updateMousePosition);
+    window.addEventListener("mousemove", updateMousePosition, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", updateMousePosition);
@@ -34,6 +48,11 @@ export function AmbientCursorGlow() {
       }
     };
   }, []);
+
+  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+  if (prefersReducedMotion || isMobile) return null;
 
   return (
     <div 

@@ -19,7 +19,7 @@ export function AnimatedWave() {
       "(prefers-reduced-motion: reduce)",
     ).matches;
     let time = 0;
-    const FRAME_SKIP = 2; // Render every 2nd frame (30fps instead of 60fps)
+    const FRAME_SKIP = 3; // Render every 3rd frame (20fps instead of 60fps)
 
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;
@@ -44,22 +44,33 @@ export function AnimatedWave() {
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
 
-        const cellSize = 24;
+        const cellSize = 28; // Increased from 24 = fewer cells
         const cols = Math.floor(rect.width / cellSize);
         const rows = Math.floor(rect.height / cellSize);
+
+        // Pre-compute frequently used values
+        const timeMultiplier2 = time * 2;
+        const timeMultiplier1_5 = time * 1.5;
+        const timeMultiplier0_8 = time * 0.8;
+        const invCharsLen = 1 / (chars.length - 1);
 
         for (let y = 0; y < rows; y++) {
           for (let x = 0; x < cols; x++) {
             const px = (x + 0.5) * (rect.width / cols);
             const py = (y + 0.5) * (rect.height / rows);
 
-            // Multiple wave interference
-            const wave1 = Math.sin(x * 0.2 + time * 2) * Math.cos(y * 0.15 + time);
-            const wave2 = Math.sin((x + y) * 0.1 + time * 1.5);
-            const wave3 = Math.cos(x * 0.1 - y * 0.1 + time * 0.8);
+            // Multiple wave interference with reduced precision
+            const x_0_2 = x * 0.2;
+            const y_0_15 = y * 0.15;
+            const xy_0_1 = (x + y) * 0.1;
+            const xy_diff_0_1 = (x - y) * 0.1;
             
-            const combined = (wave1 + wave2 + wave3) / 3;
-            const normalized = (combined + 1) / 2;
+            const wave1 = Math.sin(x_0_2 + timeMultiplier2) * Math.cos(y_0_15 + time);
+            const wave2 = Math.sin(xy_0_1 + timeMultiplier1_5);
+            const wave3 = Math.cos(xy_diff_0_1 + timeMultiplier0_8);
+            
+            const combined = wave1 + wave2 + wave3;
+            const normalized = (combined + 3) * 0.1667; // (combined + 3) / 6 for range [0,1]
             
             const charIndex = Math.floor(normalized * (chars.length - 1));
             const alpha = 0.15 + normalized * 0.5;

@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useDeferredAnimation } from "@/hooks/use-deferred-animation";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { HERO_SECTION } from "./constants";
 import { ShinyButton } from "./shiny-button";
 
@@ -20,32 +21,37 @@ export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
   const shouldRenderAnimations = useDeferredAnimation(1500); // Show animations after 1.5s
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
   useEffect(() => {
+    if (prefersReducedMotion) return;
     const interval = setInterval(() => {
       setWordIndex((prev) => (prev + 1) % HERO_SECTION.words.length);
     }, 2500);
     return () => clearInterval(interval);
-  }, []);
+  }, [prefersReducedMotion]);
+
+  const shouldShowHeavyAnimations = shouldRenderAnimations && !isMobile && !prefersReducedMotion;
 
   return (
     <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden">
-      {shouldRenderAnimations && <AnimatedGradientBackground />}
-      {shouldRenderAnimations && (
+      {shouldShowHeavyAnimations && <AnimatedGradientBackground />}
+      {shouldShowHeavyAnimations && (
         <div className="absolute inset-0 z-0 pointer-events-none select-none opacity-30">
           <AnimatedWave />
         </div>
       )}
 
-      {/* Background Animated Orbs */}
-      <div className="absolute top-[20%] left-[15%] w-[40vw] h-[40vw] max-w-150 max-h-150 bg-primary/20 rounded-full blur-[120px] mix-blend-screen animate-pulse" style={{ animationDuration: '8s' }} />
-      <div className="absolute bottom-[10%] right-[10%] w-[35vw] h-[35vw] max-w-125 max-h-125 bg-accent/20 rounded-full blur-[100px] mix-blend-screen animate-pulse translate-y-1/4" style={{ animationDuration: '10s' }} />
+      {/* Background Animated Orbs - Static on mobile */}
+      <div className={`absolute top-[20%] left-[15%] w-[40vw] h-[40vw] max-w-150 max-h-150 bg-primary/20 rounded-full ${isMobile ? '' : 'blur-[120px] mix-blend-screen animate-pulse'}`} style={isMobile ? {} : { animationDuration: '8s' }} />
+      <div className={`absolute bottom-[10%] right-[10%] w-[35vw] h-[35vw] max-w-125 max-h-125 bg-accent/20 rounded-full translate-y-1/4 ${isMobile ? '' : 'blur-[100px] mix-blend-screen animate-pulse'}`} style={isMobile ? {} : { animationDuration: '10s' }} />
 
-      {/* Subtle grid lines */}
+      {/* Subtle grid lines - Static */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
         {[...Array(8)].map((_, i) => (
           <div
@@ -100,8 +106,8 @@ export function HeroSection() {
                   {HERO_SECTION.words[wordIndex].split("").map((char, i) => (
                     <span
                       key={`${wordIndex}-${i}`}
-                      className="inline-block animate-char-in"
-                      style={{
+                      className={`inline-block ${prefersReducedMotion ? '' : 'animate-char-in'}`}
+                      style={prefersReducedMotion ? {} : {
                         animationDelay: `${i * 30}ms`,
                       }}
                     >

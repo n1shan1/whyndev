@@ -240,7 +240,7 @@ export const DEVELOPERS_SECTION = {
       name: "Sweta Yadav",
       role: "UI/UX Specialist • India",
       experience: "1 Yr Exp",
-      image: "sweta.jpeg",
+      image: "/sweta.jpeg",
       aboutLink: "/about"
     }
   ],
