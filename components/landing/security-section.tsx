@@ -59,8 +59,8 @@ export function SecuritySection() {
       />
 
       {/* Decorative Blur Orbs */}
-      <div className={`absolute top-1/4 -left-20 w-96 h-96 bg-primary/5 rounded-full ${isMobile ? '' : 'blur-[120px]'} pointer-events-none`} />
-      <div className={`absolute bottom-1/4 -right-20 w-96 h-96 bg-accent/5 rounded-full ${isMobile ? '' : 'blur-[120px]'} pointer-events-none`} />
+      <div className={`absolute top-1/4 -left-20 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none`} />
+      <div className={`absolute bottom-1/4 -right-20 w-96 h-96 bg-accent/5 rounded-full blur-[120px] pointer-events-none`} />
 
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
         <div className="grid lg:grid-cols-2 gap-20 lg:gap-32 items-center">

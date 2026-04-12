@@ -77,9 +77,9 @@ export function AnimatedWave() {
             const normalized = (combined + 3) * 0.1667; // (combined + 3) / 6 for range [0,1]
             
             const charIndex = Math.floor(normalized * (chars.length - 1));
-            const alpha = 0.15 + normalized * 0.5;
+            const alpha = 0.05 + normalized * 0.3;
 
-            ctx.fillStyle = `rgba(0, 0, 0, ${alpha})`;
+            ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
             ctx.fillText(chars[charIndex], px, py);
           }
         }

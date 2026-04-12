@@ -108,7 +108,7 @@ export function Navigation() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2"
+            className="md:hidden p-2 relative z-[60] cursor-pointer"
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}
           >
@@ -122,60 +122,39 @@ export function Navigation() {
 
       </nav>
       
-      {/* Mobile Menu - Full Screen Overlay */}
+      {/* Mobile Menu - Full Screen Overlay - Only renders when menu is open */}
+      {isMobileMenuOpen && (
       <div
         role="dialog"
         aria-label="Main menu"
         aria-hidden={!isMobileMenuOpen}
-        className={`md:hidden fixed inset-0 bg-background z-40 transition-all duration-500 ${
-          isMobileMenuOpen 
-            ? "opacity-100 pointer-events-auto visible" 
-            : "opacity-0 pointer-events-none invisible"
-        }`}
-        style={{ top: 0 }}
+        className="md:hidden fixed inset-0 bg-background z-30 pointer-events-auto overflow-y-auto"
+        style={{ top: 0, bottom: 0, left: 0, right: 0 }}
       >
-        <div className="flex flex-col h-full px-8 pt-28 pb-8">
+        <div className="flex flex-col min-h-screen px-6 pt-24 pb-8 bg-background">
           {/* Navigation Links */}
-          <div className="flex-1 flex flex-col justify-center gap-8">
-            {NAVIGATION.links.map((link, i) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`text-5xl font-display transition-all duration-500 flex items-center gap-4 ${
-                    isActive ? "text-foreground" : "text-foreground/50 hover:text-foreground"
-                  } ${
-                    isMobileMenuOpen 
-                      ? "opacity-100 translate-x-0" 
-                      : "opacity-0 -translate-x-8"
-                  }`}
-                  style={{ transitionDelay: isMobileMenuOpen ? `${i * 75}ms` : "0ms" }}
-                >
-                  {isActive && <span className="w-2 h-2 rounded-full bg-foreground" />}
-                  {link.name}
-                </Link>
-              );
-            })}
-          </div>
+          <nav className="flex-1 flex flex-col justify-center gap-8">
+            {NAVIGATION.links.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-4xl font-display font-bold text-foreground hover:text-primary transition-colors duration-200"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
           
           {/* Bottom CTAs */}
-          <div className={`flex gap-4 pt-8 border-t border-foreground/10 transition-all duration-500 ${
-            isMobileMenuOpen 
-              ? "opacity-100 translate-y-0" 
-              : "opacity-0 translate-y-4"
-          }`}
-          style={{ transitionDelay: isMobileMenuOpen ? "300ms" : "0ms" }}
-          >
-            <div className="flex-1">
-              <ShinyButton href="/contact" className="w-full h-16 text-lg rounded-xl flex items-center justify-center">
-                {NAVIGATION.cta}
-              </ShinyButton>
-            </div>
+          <div className="flex flex-col gap-4 pt-8 border-t border-foreground/10">
+            <ShinyButton href="/contact" className="w-full h-14 text-base rounded-lg flex items-center justify-center">
+              {NAVIGATION.cta}
+            </ShinyButton>
           </div>
         </div>
       </div>
+      )}
     </header>
     </>
   );

@@ -27,7 +27,7 @@ export function AnimatedGradientBackground() {
 
     const orbs = [
       { x: 0, y: 0, vx: 0.1, vy: 0.15, r: 300, baseRadius: 300, color: 'rgba(217, 119, 87, 0.08)' },
-      { x: 0, y: 0, vx: -0.1, vy: -0.1, r: 350, baseRadius: 350, color: 'rgba(42, 42, 41, 0.4)' },
+      { x: 0, y: 0, vx: -0.1, vy: -0.1, r: 350, baseRadius: 350, color: 'rgba(180, 150, 100, 0.05)' },
       { x: 0, y: 0, vx: 0.15, vy: -0.05, r: 250, baseRadius: 250, color: 'rgba(217, 119, 87, 0.03)' },
     ];
 

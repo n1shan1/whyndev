@@ -58,7 +58,7 @@ export function FeaturesSection() {
           
           {/* Main Feature - Large */}
           <div className="md:col-span-2 lg:col-span-2 row-span-2 bg-card border border-border/50 hover:border-primary/30 transition-all duration-300 rounded-[32px] p-8 lg:p-12 overflow-hidden relative group">
-             <div className={`absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full ${isMobile ? '' : 'blur-[100px]'} -translate-y-1/2 translate-x-1/2 group-hover:bg-primary/10 transition-colors duration-700`} />
+             <div className={`absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 group-hover:bg-primary/10 transition-colors duration-700`} />
              
              <div className="relative z-10 h-full flex flex-col">
                <div className="w-14 h-14 rounded-2xl bg-secondary text-primary flex items-center justify-center mb-8 shadow-sm ring-1 ring-border/50">
@@ -126,7 +126,7 @@ export function FeaturesSection() {
 
           {/* Workflow/Code Block */}
           <div className="md:col-span-2 lg:col-span-2 bg-card border border-border/50 hover:border-primary/30 transition-all duration-300 rounded-[32px] p-8 flex flex-col md:flex-row gap-8 items-center shadow-sm relative overflow-hidden group">
-             <div className={`absolute -left-32 top-1/2 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full ${isMobile ? '' : 'blur-[80px]'} group-hover:bg-primary/10 transition-colors duration-700`} />
+             <div className={`absolute -left-32 top-1/2 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-[80px] group-hover:bg-primary/10 transition-colors duration-700`} />
              <div className="flex-1 space-y-4 relative z-10">
                 <div className="inline-block px-4 py-1.5 rounded-full border border-primary/20 font-mono text-xs bg-primary/5 text-primary">
                   {FEATURES_SECTION.workflow.label}
