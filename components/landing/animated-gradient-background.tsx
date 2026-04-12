@@ -8,11 +8,10 @@ export function AnimatedGradientBackground() {
   const frameCountRef = useRef(0);
   const gradientsRef = useRef<Map<string, CanvasGradient> | null>(null);
 
-  // Disable on mobile and reduced motion
+  // Disable on reduced motion only, render on mobile with lower opacity
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
-  if (prefersReducedMotion || isMobile) {
+  if (prefersReducedMotion) {
     return null;
   }
 
@@ -23,7 +22,8 @@ export function AnimatedGradientBackground() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const FRAME_SKIP = 3; // Render every 3rd frame (20fps instead of 60fps)
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const FRAME_SKIP = isMobile ? 6 : 3; // Render every 6th frame on mobile (10fps), 3rd on desktop (20fps)
 
     const orbs = [
       { x: 0, y: 0, vx: 0.1, vy: 0.15, r: 300, baseRadius: 300, color: 'rgba(217, 119, 87, 0.08)' },

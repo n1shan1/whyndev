@@ -124,8 +124,8 @@ export function Navigation() {
         aria-hidden={!isMobileMenuOpen}
         className={`md:hidden fixed inset-0 bg-background z-40 transition-all duration-500 ${
           isMobileMenuOpen 
-            ? "opacity-100 pointer-events-auto" 
-            : "opacity-0 pointer-events-none"
+            ? "opacity-100 pointer-events-auto visible" 
+            : "opacity-0 pointer-events-none invisible"
         }`}
         style={{ top: 0 }}
       >

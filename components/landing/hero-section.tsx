@@ -38,9 +38,9 @@ export function HeroSection() {
 
   const shouldShowHeavyAnimations = shouldRenderAnimations && !isMobile && !prefersReducedMotion;
 
-  // Mobile-optimized background orbs - no blur on mobile
+  // Mobile-optimized background orbs - pulse animation on mobile (no blur)
   const orbClasses = (position: string, size: string, color: string, animation?: string) =>
-    `absolute ${position} ${size} ${color} rounded-full ${isMobile ? '' : `blur-[${animation === 'pulse' ? '120' : '100'}px] mix-blend-screen animate-${animation || 'pulse'}`}`;
+    `absolute ${position} ${size} ${color} rounded-full ${isMobile ? `animate-${animation || 'pulse'}` : `blur-[${animation === 'pulse' ? '120' : '100'}px] mix-blend-screen animate-${animation || 'pulse'}`}`;
 
   return (
     <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden">

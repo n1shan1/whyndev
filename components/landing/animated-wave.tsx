@@ -7,11 +7,10 @@ export function AnimatedWave() {
   const frameRef = useRef<number | null>(null);
   const frameCountRef = useRef(0);
 
-  // Disable on mobile and reduced motion
+  // Disable on reduced motion only, but render on mobile with lower complexity
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
-  if (prefersReducedMotion || isMobile) {
+  if (prefersReducedMotion) {
     return null;
   }
 
@@ -23,8 +22,9 @@ export function AnimatedWave() {
     if (!ctx) return;
 
     const chars = "·∘○◯◌●◉";
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const FRAME_SKIP = isMobile ? 6 : 3; // Render every 6th frame on mobile (10fps), 3rd on desktop (20fps)
     let time = 0;
-    const FRAME_SKIP = 3; // Render every 3rd frame (20fps instead of 60fps)
 
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;

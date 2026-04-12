@@ -68,7 +68,7 @@ export function ContactDock() {
         : "right-6 top-1/2 -translate-y-1/2 flex-col"
     )}>
       <div className={cn(
-        `p-3 bg-secondary/40 ${isMobile ? 'backdrop-blur-md' : 'backdrop-blur-xl'} border border-border/50 shadow-2xl rounded-full flex items-center gap-3 pointer-events-auto`,
+        `p-3 bg-secondary/40 ${isMobile ? 'backdrop-blur-sm' : 'backdrop-blur-xl'} border border-border/50 shadow-2xl rounded-full flex items-center gap-3 pointer-events-auto`,
         isMobile ? "flex-row px-4" : "flex-col py-4"
       )}>
         {DOCK_ITEMS.map((item, idx) => {
